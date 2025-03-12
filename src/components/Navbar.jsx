@@ -1,6 +1,57 @@
 import React from "react";
 import Button from "./Button";
 
+function isLogin() {
+  // const getLoginInfo = JSON.parse(localStorage.getItem("userData"));
+  // const {isLogin} = getLoginInfo;
+  const isLogin = true
+  if (!isLogin) {
+    return (
+      <>
+        <li>
+          <a href="#">
+            <Button className={"bg-background text-primary"} name="Sign In" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <Button className={"bg-primary text-background"} name="Sign Up" />
+          </a>
+        </li>
+      </>
+    );
+  }
+    return (
+      <>
+        <li>location</li>
+        <li>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#000"
+          >
+            <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+          </svg>
+        </li>
+        <li>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#000"
+          >
+            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+          </svg>
+        </li>
+        <li><img src='src/assets/avatar.png' alt="avatar" width={56} height={56}/></li>
+      </>
+    )
+  
+}
+
 function Navbar() {
   return (
     <>
@@ -27,21 +78,18 @@ function Navbar() {
             />
           </svg>
           <ul className="flex gap-5">
-            <a className="hover:underline underline-offset-4" href="#"><li>Home</li></a>
-            <a className="hover:underline underline-offset-4" href="#"><li>Movie</li></a>
-            <a className="hover:underline underline-offset-4" href="#"><li>Buy Ticket</li></a>
+            <a className="hover:underline underline-offset-4" href="#">
+              <li>Home</li>
+            </a>
+            <a className="hover:underline underline-offset-4" href="#">
+              <li>Movie</li>
+            </a>
+            <a className="hover:underline underline-offset-4" href="#">
+              <li>Buy Ticket</li>
+            </a>
           </ul>
-          <ul className="flex gap-2">
-            <li>
-              <a href="#">
-              <Button className={'bg-background text-primary'} name="Sign In" />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-              <Button className={'bg-primary text-background'} name="Sign Up" />
-              </a>
-            </li>
+          <ul className="flex gap-2 items-center">
+            {isLogin()}
           </ul>
         </nav>
         <nav className="flex justify-between py-4 px-6 md:hidden">
