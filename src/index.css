@@ -4,6 +4,12 @@
   body {
     font-family: "Mulish", sans-serif;
   }
+  /* input {
+    @apply border rounded px-3 py-1
+  } */
+  a, button {
+    @apply cursor-pointer text-primary
+  }
 }
 @theme {
   --font-display: "Mulish", "sans-serif";
@@ -17,4 +23,10 @@
   --color-background: #f5f6f8;
 
   --radius-5px: 5px;
+}
+
+@layer components {
+  .input-form {
+    @apply w-full h-[3.25rem] border rounded px-3 py-1
+  }
 }
