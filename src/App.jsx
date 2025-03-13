@@ -1,8 +1,8 @@
 import Button from "./components/Button"
 import Footer from "./components/Footer"
 import Navbar from "./components/Navbar"
-import Login from "./pages/login"
-import Register from "./pages/register"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     
       {/* <Navbar /> */}
       {/* <Register/> */}
-      {/* <Login /> */}
+      <Login />
       {/* <Footer /> */}
     </>
   )

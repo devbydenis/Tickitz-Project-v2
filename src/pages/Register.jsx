@@ -8,13 +8,14 @@ function Register() {
 
   return (
     <>
-      <main className="bg-[url(src/assets/background.png)] bg-cover bg-center h-screen">
+      <main className="relative bg-[url(src/assets/background.png)] bg-cover bg-center h-screen">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
         <img
-          className="tickitz pt-14 mx-auto"
+          className="tickitz pt-14 mx-auto relative z-10"
           src="src/assets/tickitz.svg"
           alt="tickitz-logo"
         />
-        <form className="flex flex-col gap-7 my-5 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl">
+        <form className="relative z-10 flex flex-col gap-7 my-5 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl">
           <ul className="step-by-step hidden md:flex justify-around items-center gap-4">
             <li className="flex flex-col items-center">
               <p className="rounded-full bg-primary text-background py-2 px-4 mb-3">
