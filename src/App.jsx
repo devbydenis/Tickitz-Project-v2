@@ -1,9 +1,9 @@
 import Button from "./components/Button"
 import Footer from "./components/Footer"
 import Navbar from "./components/Navbar"
+import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
-
 
 function App() {
 
@@ -12,7 +12,8 @@ function App() {
     
       {/* <Navbar /> */}
       {/* <Register/> */}
-      <Login />
+      {/* <Login /> */}
+      <Home />
       {/* <Footer /> */}
     </>
   )

@@ -29,4 +29,10 @@
   .input-form {
     @apply w-full h-[3.25rem] border rounded px-3 py-1
   }
+  .card {
+    @apply w-60
+  }
+  .card-img {
+    @apply w-60
+  }
 }
