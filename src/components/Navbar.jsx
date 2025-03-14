@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import { Link } from "react-router";
 
 function isLogin() {
   // const getLoginInfo = JSON.parse(localStorage.getItem("userData"));
@@ -78,15 +79,15 @@ function Navbar() {
             />
           </svg>
           <ul className="flex gap-5">
-            <a className="hover:underline underline-offset-4" href="#">
+            <Link className="text-title-info-first font-medium hover:underline underline-offset-4" to="#">
               <li>Home</li>
-            </a>
-            <a className="hover:underline underline-offset-4" href="#">
+            </Link>
+            <Link className="text-title-info-first font-medium hover:underline underline-offset-4" to="#">
               <li>Movie</li>
-            </a>
-            <a className="hover:underline underline-offset-4" href="#">
+            </Link>
+            <Link className="text-title-info-first font-medium hover:underline underline-offset-4" to="#">
               <li>Buy Ticket</li>
-            </a>
+            </Link>
           </ul>
           <ul className="flex gap-2 items-center">
             {isLogin()}
