@@ -1,6 +1,5 @@
 // import React, { useEffect, useState } from "react";
 import {Link} from "react-router";
-// import {getGenres} from "../service.js";
 
 function Card({image, title, genres = []}) {
   return (
@@ -23,10 +22,6 @@ function Card({image, title, genres = []}) {
           </Link>
         </div>
         <img className="card-img object-cover" src={`https://image.tmdb.org/t/p/original${image}`} alt={title} />
-        {/* <div 
-          className={`border border-red-600 h-[23rem]`}
-          style={{backgroundImage: `url("https://image.tmdb.org/t/p/original${image}")`, backgroundSize: "cover"}}  
-        ></div> */}
         <Link className="inline-block font-bold text-lg text-black my-3" to="#">
           {title}
         </Link>

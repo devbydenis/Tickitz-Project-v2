@@ -1,5 +1,6 @@
 // const url = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
-const urlNowPlayingMovie = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1'
+const urlNowPlayingMovie = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1'
+const urlUpComingMovies = "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1"
 const urlGenre = 'https://api.themoviedb.org/3/genre/movie/list?language=en'
 const options = {
   method: 'GET',
@@ -16,5 +17,10 @@ export function getNowPlayingMovie() {
 
 export function getGenres() {
   const response = fetch(urlGenre, options);
+  return response
+}
+
+export function getUpComingMovies() {
+  const response = fetch(urlUpComingMovies, options)
   return response
 }

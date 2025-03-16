@@ -5,19 +5,20 @@ import hero3 from "../assets/hero-3.png";
 import hero4 from "../assets/hero-4.png";
 import Card from "../components/Card";
 import {Link} from "react-router";
-import { getGenres, getNowPlayingMovie } from "../service.js";
+import { getGenres, getNowPlayingMovie, getUpComingMovies } from "../service.js";
 
 function Home() {
   const [nowPlaying, setNowPlaying] = useState([]);
+  const [upComing, setUpComing] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   
   
   useEffect(() => {
-    async function getMovies() {
+    async function getMovies(fetchAPI, setState) {
       try {
         setIsLoading(true)
-        const response = await getNowPlayingMovie();
+        const response = await fetchAPI();
         if (!response.ok) throw new Error(response.statusText);
   
         const dataJSON = await response.json()
@@ -30,15 +31,14 @@ function Home() {
   
         const result = await moviesData
         // console.log("result", result);
-        setNowPlaying(result)
+        setState(result)
       } catch (error) {
         if (error instanceof Error) console.log(error.message);
       } finally {
         setIsLoading(false);
       }
     }
-  
-    async function getDataGenres({title, backdrop_path, genre_ids}) {
+    async function getDataGenres({title, poster_path, genre_ids}) {
       try {
         const response = await getGenres();
         if (!response.ok) throw new Error(response.statusText);
@@ -58,7 +58,7 @@ function Home() {
         // console.log("result after comparing", result);
         return {
           title: title,
-          image: `https://image.tmdb.org/t/p/original${backdrop_path}`,
+          image: `https://image.tmdb.org/t/p/original${poster_path}`,
           genres: result
         }
       } catch (error) {
@@ -68,7 +68,9 @@ function Home() {
       }
     }
     getDataGenres();
-    getMovies()
+    // getMovies()
+    getMovies(getNowPlayingMovie, setNowPlaying)
+    getMovies(getUpComingMovies, setUpComing)
     }, [])
     
     console.log("now playing", nowPlaying);
@@ -103,7 +105,7 @@ function Home() {
               style={{backgroundImage: `url(${hero1})`, gridArea: "hero1"}}
             ></div>
             <div
-              className="h-full bg-cover"
+              className="h-full bg-cover rounded-l"
               style={{backgroundImage: `url(${hero2})`, gridArea: "hero2"}}
             ></div>
             <div
@@ -237,7 +239,7 @@ function Home() {
           <ul className="movies-carousel flex gap-4 overflow-x-scroll md:py-5">
             {
             isLoading 
-              ? ( <p>Loading</p> )
+              ? ( <p>Loading...</p> )
               : nowPlaying.length !== 0
                 ? nowPlaying.map((movie, index) => {
                     return (
@@ -287,9 +289,26 @@ function Home() {
           <h3 className="font-normal text-[2rem]/10 py-5 mb-5">
             Exciting Movie Coming Soon
           </h3>
-          <div className="movies-carousel overflow-x-scroll md:py-5">
-            <Card img={hero1} title="Black Widodo" />
-          </div>
+          <ul className="movies-carousel flex gap-3 overflow-x-scroll md:py-5">
+          {
+            isLoading 
+              ? ( <p>Loading...</p> )
+              : upComing.length !== 0
+                ? upComing.map((movie, index) => {
+                    return (
+                      <li key={index}>
+                        <Card 
+
+                          title={movie.title}
+                          image={movie.image}
+                          genres = {movie.genres}
+                        />
+                      </li>
+                    )
+                  })
+                : ( <p>There are no movies in this category</p> )
+            }
+          </ul>
         </section>
         <section className="subscribe flex flex-col items-center gap-9 py-14 bg-primary rounded-xl">
           <p className="px-2.5 font-normal text-3xl/12 text-background text-center">
