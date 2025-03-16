@@ -1,7 +1,7 @@
 // import React, { useEffect, useState } from "react";
 import {Link} from "react-router";
 
-function Card({image, title, genres = []}) {
+function Card({id, image, title, genres = []}) {
   return (
     <>
       <div className="card rounded-lg overflow-hidden relative group">
@@ -9,7 +9,7 @@ function Card({image, title, genres = []}) {
         <div className=" absolute top-0 right-0 left-0 h-[23rem] invisible group-hover:visible group-hover:bg-black group-hover:opacity-50 transition all duration-300"></div>
         <div className="absolute top-0 right-0 left-0 h-[23rem] z-10 flex flex-col justify-center gap-3 items-center invisible group-hover:visible">
           <Link
-            to="#"
+            to={`/${id}`}
             className="text-background outline outline-background w-36 py-3 text-center rounded hover:bg-primary hover:outline-none"
           >
             Details

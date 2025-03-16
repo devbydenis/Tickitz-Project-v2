@@ -11,8 +11,6 @@ function Home() {
   const [nowPlaying, setNowPlaying] = useState([]);
   const [upComing, setUpComing] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  
   
   useEffect(() => {
     async function getMovies(fetchAPI, setState) {
@@ -245,7 +243,7 @@ function Home() {
                     return (
                       <li key={index}>
                         <Card 
-
+                          index={index}
                           title={movie.title}
                           image={movie.image}
                           genres = {movie.genres}
