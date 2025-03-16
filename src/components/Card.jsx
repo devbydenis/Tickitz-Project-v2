@@ -1,39 +1,46 @@
-import React from "react";
+// import React, { useEffect, useState } from "react";
 import {Link} from "react-router";
+// import {getGenres} from "../service.js";
 
-function Card({img, title}) {
+function Card({image, title, genres = []}) {
   return (
     <>
-      <div className="card">
+      <div className="card rounded-lg overflow-hidden relative group">
         {/* <!-- show detail hover --> */}
-        <div className="hidden">
-          <a href="../detail/detail.html">
-            <button>Details</button>
-          </a>
-          <a href="#">
-            <button>Buy Tickets</button>
-          </a>
+        <div className=" absolute top-0 right-0 left-0 h-[23rem] invisible group-hover:visible group-hover:bg-black group-hover:opacity-50 transition all duration-300"></div>
+        <div className="absolute top-0 right-0 left-0 h-[23rem] z-10 flex flex-col justify-center gap-3 items-center invisible group-hover:visible">
+          <Link
+            to="#"
+            className="text-background outline outline-background w-36 py-3 text-center rounded hover:bg-primary hover:outline-none"
+          >
+            Details
+          </Link>
+          <Link
+            to="#"
+            className="text-background outline outline-background w-36 py-3 text-center rounded hover:bg-primary hover:outline-none"
+          >
+            Buy Tickets
+          </Link>
         </div>
-        <img className="card-img" src={img} alt="Black Widow"/>
+        <img className="card-img object-cover" src={`https://image.tmdb.org/t/p/original${image}`} alt={title} />
+        {/* <div 
+          className={`border border-red-600 h-[23rem]`}
+          style={{backgroundImage: `url("https://image.tmdb.org/t/p/original${image}")`, backgroundSize: "cover"}}  
+        ></div> */}
         <Link className="inline-block font-bold text-lg text-black my-3" to="#">
           {title}
         </Link>
-        <ul className="flex flex-wrap gap-2 text-sm">
-          <li className="px-4 bg-[#a0a3bd28] text-title-info-second rounded-xl">
-            Action
-          </li>
-          <li className="px-4 bg-[#a0a3bd28] text-title-info-second rounded-xl">
-            Adventure
-          </li>
-          <li className="px-4 bg-[#a0a3bd28] text-title-info-second rounded-xl">
-            Comedy
-          </li>
-          <li className="px-4 bg-[#a0a3bd28] text-title-info-second rounded-xl">
-            Romance
-          </li>
-          <li className="px-4 bg-[#a0a3bd28] text-title-info-second rounded-xl">
-            Sci-fi
-          </li>
+        <ul className="flex flex-wrap gap-2">
+          {genres && 
+            genres.map((element, index) => {
+              return (<li key={index} className="px-4 bg-[#a0a3bd28] text-title-info-second rounded-xl">
+                {element}
+              </li>)
+            })
+          }
+          {/* <li className="px-4 bg-[#a0a3bd28] text-title-info-second rounded-xl">
+            {typeof  genres}
+          </li> */}
         </ul>
       </div>
     </>

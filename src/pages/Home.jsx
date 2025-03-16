@@ -1,21 +1,87 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import hero1 from "../assets/hero-1.png";
 import hero2 from "../assets/hero-2.png";
 import hero3 from "../assets/hero-3.png";
 import hero4 from "../assets/hero-4.png";
 import Card from "../components/Card";
-import { Link } from "react-router";
-function Home() {
+import {Link} from "react-router";
+import { getGenres, getNowPlayingMovie } from "../service.js";
 
+function Home() {
+  const [nowPlaying, setNowPlaying] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  
+  
+  useEffect(() => {
+    async function getMovies() {
+      try {
+        setIsLoading(true)
+        const response = await getNowPlayingMovie();
+        if (!response.ok) throw new Error(response.statusText);
+  
+        const dataJSON = await response.json()
+        const data = dataJSON.results
+        // console.log("data movies", data);
+        const moviesData = Promise.all(
+          data.map((element) => {
+            return getDataGenres(element)
+        }))
+  
+        const result = await moviesData
+        // console.log("result", result);
+        setNowPlaying(result)
+      } catch (error) {
+        if (error instanceof Error) console.log(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  
+    async function getDataGenres({title, backdrop_path, genre_ids}) {
+      try {
+        const response = await getGenres();
+        if (!response.ok) throw new Error(response.statusText);
+  
+        const json = await response.json();
+        const dataGenres = json.genres
+        // console.log("Data Genres", dataGenres);
+        const result = []
+        dataGenres.forEach((dataGenre) => {
+          // console.log("data genre", dataGenre);
+          genre_ids.forEach((genre_id) => {
+            if (genre_id === dataGenre.id) {
+              result.push(dataGenre.name)
+            }
+          })
+        })
+        // console.log("result after comparing", result);
+        return {
+          title: title,
+          image: `https://image.tmdb.org/t/p/original${backdrop_path}`,
+          genres: result
+        }
+      } catch (error) {
+          if (error instanceof Error) console.log(error.message);
+      } finally {
+          setIsLoading(false);
+      }
+    }
+    getDataGenres();
+    getMovies()
+    }, [])
+    
+    console.log("now playing", nowPlaying);
+  
   return (
     <>
       <main className="px-5 py-5">
-        <section className="hero">
-          <div className="hero-desc">
-            <p className="font-bold text-primary text-[1.125rem]/8 text-center ">
+        <section className="hero md:flex md:justify-around md:mt-12">
+          <div className="hero-desc md:w-4/8 md:flex md:flex-col md:items-start md:justify-center">
+            <p className="font-bold text-primary text-[1.125rem]/8 text-center">
               MOVIE TICKET PURCHASES #1 IN INDONESIA
             </p>
-            <p className="font-medium text-[2rem]/10 text-center py-5">
+            <p className="font-medium text-[2rem]/10 text-center py-5 md:text-start">
               Experience the Magic of Cinema: Book Your Tickets Today
             </p>
             <p className="text-base/8 text-secondary pb-5">
@@ -23,7 +89,7 @@ function Home() {
             </p>
           </div>
           <div
-            className="hero-img grid grid-cols-2 grid-rows-3 gap-2 bg-cover"
+            className="hero-img grid grid-cols-2 grid-rows-3 gap-2 bg-cover md:w-3/8"
             style={{
               gridTemplateAreas: `
               'hero1 hero2'
@@ -33,35 +99,35 @@ function Home() {
             }}
           >
             <div
-              className="h-30 bg-cover rounded"
+              className="h-30 bg-cover"
               style={{backgroundImage: `url(${hero1})`, gridArea: "hero1"}}
             ></div>
             <div
-              className="h-full bg-cover rounded"
+              className="h-full bg-cover"
               style={{backgroundImage: `url(${hero2})`, gridArea: "hero2"}}
             ></div>
             <div
-              className="h-full bg-cover rounded"
+              className="h-full bg-cover"
               style={{backgroundImage: `url(${hero3})`, gridArea: "hero3"}}
             ></div>
             <div
-              className="h-full bg-cover rounded"
+              className="h-full bg-cover"
               style={{backgroundImage: `url(${hero4})`, gridArea: "hero4"}}
             ></div>
             {/* <div style={{ backgroundImage: "url('src/assets/hero-4.png')" }}></div> */}
           </div>
         </section>
-        <section className="why-choose-us pb-8 pt-[4.5rem] text-center">
-          <h2 className="font-bold text-primary text-[1.125rem]/8 text-center">
+        <section className="why-choose-us pb-8 pt-[4.5rem] text-center md:text-start">
+          <h2 className="font-bold text-primary text-[1.125rem]/8 text-center md:text-start">
             WHY CHOOSE US
           </h2>
-          <h3 className="font-normal text-[2rem]/10 text-center py-5">
+          <h3 className="font-normal text-[2rem]/10 text-center py-5 md:text-start">
             Unleashing the Ultimate Movie Experience
           </h3>
-          <ul className="flex flex-col gap-5 mt-5">
-            <li>
+          <ul className="flex flex-col gap-5 mt-5 md:flex-row">
+            <li className="">
               <svg
-                className="w-full"
+                className="w-full md:w-1/5"
                 width="55"
                 height="54"
                 viewBox="0 0 55 54"
@@ -83,7 +149,7 @@ function Home() {
                   fill="#1D4ED8"
                 />
               </svg>
-              <p className="font-bold text-lg">Guaranteed</p>
+              <p className="font-bold text-lg my-3">Guaranteed</p>
               <p className="text-title-info-first">
                 Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim
                 nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.
@@ -91,7 +157,7 @@ function Home() {
             </li>
             <li>
               <svg
-                className="w-full"
+                className="w-full md:w-1/5"
                 width="55"
                 height="55"
                 viewBox="0 0 55 55"
@@ -125,7 +191,7 @@ function Home() {
                   </clipPath>
                 </defs>
               </svg>
-              <p className="font-bold text-lg">Affordable</p>
+              <p className="font-bold text-lg my-3">Affordable</p>
               <p className="text-title-info-first">
                 Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim
                 nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.
@@ -133,7 +199,7 @@ function Home() {
             </li>
             <li>
               <svg
-                className="w-full"
+                className="w-full md:w-1/5"
                 width="53"
                 height="55"
                 viewBox="0 0 53 55"
@@ -153,7 +219,7 @@ function Home() {
                   fill="#1D4ED8"
                 />
               </svg>
-              <p className="font-bold text-lg">24/7 Customer Support</p>
+              <p className="font-bold text-lg my-3">24/7 Customer Support</p>
               <p className="text-title-info-first">
                 Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim
                 nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.
@@ -168,9 +234,26 @@ function Home() {
           <h3 className="font-normal text-[2rem]/10 text-center py-5 mb-5">
             Exciting Movies That Should Be Watched Today
           </h3>
-          <div className="movies-carousel overflow-x-scroll">
-            <Card img={hero1} title="Black Widodo" />
-          </div>
+          <ul className="movies-carousel flex gap-4 overflow-x-scroll md:py-5">
+            {
+            isLoading 
+              ? ( <p>Loading</p> )
+              : nowPlaying.length !== 0
+                ? nowPlaying.map((movie, index) => {
+                    return (
+                      <li key={index}>
+                        <Card 
+
+                          title={movie.title}
+                          image={movie.image}
+                          genres = {movie.genres}
+                        />
+                      </li>
+                    )
+                  })
+                : ( <p>There are no movies in this category</p> )
+            }
+          </ul>
           <Link to="#" className="flex place-items-center justify-center my-5">
             View All
             <svg
@@ -197,15 +280,21 @@ function Home() {
             </svg>
           </Link>
         </section>
-        <section className="up-coming-movies my-5">
-          <h2 className="font-bold text-primary text-[1.125rem]/8">UPCOMING MOVIES</h2>
-          <h3 className="font-normal text-[2rem]/10 py-5 mb-5">Exciting Movie Coming Soon</h3>
-          <div className="movies-carousel">
-          <Card img={hero1} title="Black Widodo" />
+        <section className="up-coming-movies my-5 md:py-5">
+          <h2 className="font-bold text-primary text-[1.125rem]/8">
+            UPCOMING MOVIES
+          </h2>
+          <h3 className="font-normal text-[2rem]/10 py-5 mb-5">
+            Exciting Movie Coming Soon
+          </h3>
+          <div className="movies-carousel overflow-x-scroll md:py-5">
+            <Card img={hero1} title="Black Widodo" />
           </div>
         </section>
         <section className="subscribe flex flex-col items-center gap-9 py-14 bg-primary rounded-xl">
-          <p className="px-2.5 font-normal text-3xl/12 text-background text-center">Subscribe to our newsletter</p>
+          <p className="px-2.5 font-normal text-3xl/12 text-background text-center">
+            Subscribe to our newsletter
+          </p>
           <form className="flex flex-col gap-2.5 px-7">
             <div>
               <label htmlFor="firstname"></label>

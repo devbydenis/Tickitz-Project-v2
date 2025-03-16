@@ -10,11 +10,11 @@ function App() {
   return (
     <>
     
-      {/* <Navbar /> */}
+      <Navbar />
       {/* <Register/> */}
       {/* <Login /> */}
       <Home />
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 } 

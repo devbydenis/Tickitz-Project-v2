@@ -22,7 +22,7 @@
   --color-title-info-second: #aaaaaa;
   --color-background: #f5f6f8;
 
-  --radius-5px: 5px;
+  /* --radius-5px: 5px; */
 }
 
 @layer components {
@@ -33,6 +33,6 @@
     @apply w-60
   }
   .card-img {
-    @apply w-60
+    @apply w-60 h-[23rem]
   }
 }
