@@ -5,6 +5,7 @@ import { API_KEY } from "../service";
 function Detail() {
   const [moviesDetail, setMoviesDetail] = useState([]);
   const params = useParams();
+  const {title, poster_path, backdrop_path, release_date, overview} = moviesDetail
 
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/movie/${params.id}?language=en-US`;
@@ -45,20 +46,32 @@ function Detail() {
     <>
       <main className="">
         <section
-          className={`banner h-[475px] bg-[url(https://image.tmdb.org/t/p/original${moviesDetail.poster_path})] bg-cover bg-center brightness-50`}
-        >{moviesDetail.poster_path}</section>
-        <section className="film-information p-8">
-          <h1 className="text-2xl font-semibold text-center">
-            {moviesDetail.title}
+          className={`banner h-[475px]  bg-cover bg-center brightness-50`}
+          // style={{ backgroundImage: `url("https://image.tmdb.org/t/p/original${backdrop_path}")` }}
+          style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})` }}
+        ></section>
+        <section 
+          className="film-information p-8 flex flex-col items-center transform -translate-y-32"  
+          
+        >
+          <img src={`https://image.tmdb.org/t/p/original${poster_path}`} alt="" width={250} height={350}/>
+          <h1 className="mt-10 text-2xl font-semibold text-center">
+            {title}
           </h1>
           <ul className="flex justify-center gap-2 mt-4">
-            <li className="bg-gray-100 px-4 py-2 rounded-full">Action</li>
-            <li className="bg-gray-100 px-4 py-2 rounded-full">Adventure</li>
+            {/* {
+              genres.map((genre) => {
+                return (
+                  <li className="bg-gray-100 px-4 py-2 rounded-full">{genre}</li>
+                )
+              })
+            } */}
+            {/* <li className="bg-gray-100 px-4 py-2 rounded-full">Adventure</li> */}
           </ul>
           <ul className="flex justify-center gap-5 mt-6 flex-wrap">
             <li>
               <p className="text-gray-500">Release date</p>
-              <p className="text-black">{moviesDetail.release_date}</p>
+              <p className="text-black">{release_date}</p>
             </li>
             <li>
               <p className="text-gray-500">Duration</p>
@@ -76,15 +89,7 @@ function Detail() {
         </section>
         <section className="synopsis p-6">
           <h3 className="text-xl font-semibold mb-4">Synopsis</h3>
-          <p className="text-gray-500">
-            Thrilled by his experience with the Avengers, Peter returns home,
-            where he lives with his Aunt May, under the watchful eye of his new
-            mentor Tony Stark, Peter tries to fall back into his normal daily
-            routine - distracted by thoughts of proving himself to be more than
-            just your friendly neighborhood Spider-Man - but when the Vulture
-            emerges as a new villain, everything that Peter holds most important
-            will be threatened.
-          </p>
+          <p className="text-gray-500">{overview}</p>
         </section>
         <section className="showtimes-ticket p-6">
           <form className="flex flex-col items-center">

@@ -10,6 +10,7 @@ import Account from "./pages/profile/Account.jsx";
 import AuthLayouts from "./layouts/AuthLayouts.jsx";
 import Main from "./layouts/Main.jsx";
 import Detail from "./pages/Detail.jsx";
+import MoviesAll from "./pages/MoviesAll.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -25,8 +26,8 @@ createRoot(document.getElementById("root")).render(
           <Route path="movie">
             <Route path=":id" element={<Detail />} />
           </Route>
+          <Route path="movie-all" element={<MoviesAll />}/>
         </Route>
-
         {/* <Route path="profile">
         <Route index element={<Account />}/>
         <Route path="history" element={<History />}/>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "./Button";
-import {Link} from "react-router";
+import {Link, NavLink} from "react-router";
 
 function Navbar() {
   const [isShow, setIsShow] = useState(true)
@@ -130,7 +130,7 @@ function Navbar() {
               fill="#1D4ED8"
             />
           </svg>
-          <button type="button" onClick={showMenu}>
+          <button type="button" onClick={showMenu} className="transition delay-150 duration-300 ease-in-out">
             <svg
               width="24"
               height="24"
@@ -153,11 +153,13 @@ function Navbar() {
             </svg>
           </button>
         </nav>
-        <ul className={`${isShow ? "hidden" : "flex"} flex-col items-center absolute top-16 right-0 w-full bg-white shadow-2xl transition-all duration-300 ease-in-out`}>
-          <li className="cursor-pointer hover:underline">Home</li>
-          <li className="cursor-pointer hover:underline">Movie</li>
-          <li className="cursor-pointer hover:underline">Buy Ticket</li>
-          <li className="cursor-pointer hover:underline">Profil</li>
+        <ul 
+          className={`${isShow ? "hidden" : "flex"} flex-col items-center absolute top-16 right-0 z-10 w-full bg-white shadow-2xl transform`}
+        >
+          <li className="cursor-pointer hover:underline"><NavLink to={'/'}>Home</NavLink></li>
+          <li className="cursor-pointer hover:underline"><NavLink to={'#'}>Movie</NavLink></li>
+          <li className="cursor-pointer hover:underline"><NavLink to={'#'}>Buy Ticket</NavLink></li>
+          <li className="cursor-pointer hover:underline"><NavLink to={'#'}>Profil</NavLink></li>
         </ul>
       </header>
     </>
