@@ -36,7 +36,7 @@ function Home() {
         setIsLoading(false);
       }
     }
-    async function getDataGenres({title, poster_path, genre_ids}) {
+    async function getDataGenres({id, title, poster_path, genre_ids}) {
       try {
         const response = await getGenres();
         if (!response.ok) throw new Error(response.statusText);
@@ -55,6 +55,7 @@ function Home() {
         })
         // console.log("result after comparing", result);
         return {
+          id: id,
           title: title,
           image: `https://image.tmdb.org/t/p/original${poster_path}`,
           genres: result
@@ -240,10 +241,11 @@ function Home() {
               ? ( <p>Loading...</p> )
               : nowPlaying.length !== 0
                 ? nowPlaying.map((movie, index) => {
+                  console.log("Movie nih bos", movie.id);
                     return (
                       <li key={index}>
                         <Card 
-                          index={index}
+                          id={movie.id}
                           title={movie.title}
                           image={movie.image}
                           genres = {movie.genres}
