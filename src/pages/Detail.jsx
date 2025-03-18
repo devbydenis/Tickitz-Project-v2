@@ -1,11 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
-import { API_KEY } from "../service";
+import {API_KEY} from "../service";
 
 function Detail() {
   const [moviesDetail, setMoviesDetail] = useState([]);
   const params = useParams();
-  const {title, poster_path, backdrop_path, release_date, overview} = moviesDetail
+  const {title, poster_path, backdrop_path, release_date, overview} = moviesDetail;
+  const date = new Date(release_date)
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ]
+  const day = date.getDate()
+  const month = months[date.getMonth()]
+  const year = date.getFullYear()
+  const releaseDate = `${day} ${month} ${year}`
 
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/movie/${params.id}?language=en-US`;
@@ -13,8 +22,7 @@ function Detail() {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization:
-          `Bearer ${API_KEY}`,
+        Authorization: `Bearer ${API_KEY}`,
       },
     };
 
@@ -44,48 +52,61 @@ function Detail() {
 
   return (
     <>
-      <main className="">
+      <article className="grid grid-cols-1 grid-rows-[200px_1fr_300px_400px] ">
         <section
-          className={`banner h-[475px]  bg-cover bg-center brightness-50`}
-          // style={{ backgroundImage: `url("https://image.tmdb.org/t/p/original${backdrop_path}")` }}
-          style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})` }}
+          className={`banner h-[475px] bg-cover bg-center brightness-50 `}
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})`,
+          }}
         ></section>
-        <section 
-          className="film-information p-8 flex flex-col items-center transform -translate-y-32"  
-          
-        >
-          <img src={`https://image.tmdb.org/t/p/original${poster_path}`} alt="" width={250} height={350}/>
-          <h1 className="mt-10 text-2xl font-semibold text-center">
-            {title}
-          </h1>
-          <ul className="flex justify-center gap-2 mt-4">
-            {/* {
+        <section className="film-information z-10 py-8 pl-8 pr-0 flex flex-col items-center md:flex-row md:items-end">
+          <img
+            className="md: w-80"
+            src={`https://image.tmdb.org/t/p/original${poster_path}`}
+            alt=""
+          />
+          <div className="info-film bg-white md:flex md:flex-col md:items-start md:justify-end pl-5 md:w-full">
+            <h1 className="mt-10 text-2xl font-semibold text-center">
+              {title}
+            </h1>
+            <ul className="flex justify-center flex-wrap gap-2 mt-4">
+              <li className="bg-gray-100 px-4 py-2 rounded-full">Adventure</li>
+              <li className="bg-gray-100 px-4 py-2 rounded-full">Action</li>
+              <li className="bg-gray-100 px-4 py-2 rounded-full">Romance</li>
+              <li className="bg-gray-100 px-4 py-2 rounded-full">Comedy</li>
+              <li className="bg-gray-100 px-4 py-2 rounded-full">Sci-Fi</li>
+              <li className="bg-gray-100 px-4 py-2 rounded-full">Horror</li>
+              {/* {
               genres.map((genre) => {
                 return (
                   <li className="bg-gray-100 px-4 py-2 rounded-full">{genre}</li>
                 )
               })
             } */}
-            {/* <li className="bg-gray-100 px-4 py-2 rounded-full">Adventure</li> */}
-          </ul>
-          <ul className="flex justify-center gap-5 mt-6 flex-wrap">
-            <li>
-              <p className="text-gray-500">Release date</p>
-              <p className="text-black">{release_date}</p>
-            </li>
-            <li>
-              <p className="text-gray-500">Duration</p>
-              <p className="text-black">2 hrs 13 min</p>
-            </li>
-            <li>
-              <p className="text-gray-500">Directed by</p>
-              <p className="text-black">Jon Watts</p>
-            </li>
-            <li>
-              <p className="text-gray-500">Casts</p>
-              <p className="text-black">Tom Holland, Robert Downey Jr., etc.</p>
-            </li>
-          </ul>
+              {/* <li className="bg-gray-100 px-4 py-2 rounded-full">Adventure</li> */}
+            </ul>
+            <ul className="grid grid-cols-2 gap-5 mt-5">
+              {/* <ul className="flex justify-between gap-5 mt-6 flex-wrap"> */}
+              <li className="w-full flex flex-col items-center md:items-start">
+                <p className="text-gray-500">Release date</p>
+                <p className="text-black">{releaseDate}</p>
+              </li>
+              <li className="w-full">
+                <p className="text-gray-500">Duration</p>
+                <p className="text-black">2 hrs 13 min</p>
+              </li>
+              <li className="w-full flex flex-col items-center md:items-start">
+                <p className="text-gray-500">Directed by</p>
+                <p className="text-black">Jon Watts</p>
+              </li>
+              <li className="w-full">
+                <p className="text-gray-500">Casts</p>
+                <p className="text-black pr-4">
+                  Tom Holland, Robert Downey Jr, Dwayne Johnson
+                </p>
+              </li>
+            </ul>
+          </div>
         </section>
         <section className="synopsis p-6">
           <h3 className="text-xl font-semibold mb-4">Synopsis</h3>
@@ -223,8 +244,7 @@ function Detail() {
             )}
           </div>
         </section>
-
-      </main>
+      </article>
     </>
   );
 }
