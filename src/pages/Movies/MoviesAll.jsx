@@ -68,14 +68,16 @@ function MoviesAll() {
               </div>
             </div>
           </form>
-          <div className="movies-carousel"></div>
+          <div className="movies-carousel w-full h-screen bg-gray-300 p-3">
+            {/* FILL WITH FETCHING DATA */}
+          </div>
         </section>
-        <section className="pagination">
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>4</button>
-          <button>
+        <section className="pagination flex justify-center gap-2 py-5">
+          <button className="bg-primary text-white px-3 py-1 rounded-full font-semibold">1</button>
+          <button className="bg-white text-primary px-3 py-1 rounded-full font-semibold">2</button>
+          <button className="bg-white text-primary px-3 py-1 rounded-full font-semibold">3</button>
+          <button className="bg-white text-primary px-3 py-1 rounded-full font-semibold">4</button>
+          <button className="bg-primary text-white px-3 py-1 rounded-full font-semibold">
             <svg
               width="24"
               height="24"
