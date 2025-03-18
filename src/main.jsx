@@ -11,28 +11,31 @@ import AuthLayouts from "./layouts/AuthLayouts.jsx";
 import Main from "./layouts/Main.jsx";
 import Detail from "./pages/Detail.jsx";
 import MoviesAll from "./pages/MoviesAll.jsx";
+// import UserProvider from "./context/userContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        {/* <Route index element={<Home />}/> */}
-        <Route path="/auth" element={<AuthLayouts />}>
-          <Route index element={<Login />} />
-          <Route path="new" element={<Register />} />
-        </Route>
-        <Route element={<Main />}>
-          <Route index element={<Home />} />
-          <Route path="movie">
-            <Route path=":id" element={<Detail />} />
+    {/* <UserProvider> */}
+      <BrowserRouter>
+        <Routes>
+          {/* <Route index element={<Home />}/> */}
+          <Route path="/auth" element={<AuthLayouts />}>
+            <Route index element={<Login />} />
+            <Route path="new" element={<Register />} />
           </Route>
-          <Route path="movie-all" element={<MoviesAll />}/>
+          <Route element={<Main />}>
+            <Route index element={<Home />} />
+            <Route path="movie">
+              <Route path=":id" element={<Detail />} />
+            </Route>
+            <Route path="movie-all" element={<MoviesAll />}/>
+          </Route>
+          <Route path="profile">
+            <Route index element={<Account />}/>
+            <Route path="history" element={<History />}/>
         </Route>
-        {/* <Route path="profile">
-        <Route index element={<Account />}/>
-        <Route path="history" element={<History />}/>
-      </Route> */}
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    {/* </UserProvider> */}
   </StrictMode>
 );

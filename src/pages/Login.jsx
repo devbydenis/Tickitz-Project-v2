@@ -9,6 +9,7 @@ function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    isLogin: false
   });
   const navigate = useNavigate();
 
@@ -19,16 +20,19 @@ function Login() {
     setFormData({
       ...formData,
       [name]: value,
+      isLogin: true
     });
   };
 
   const validateForm = (form) => {
     const errors = {};
     const regexEmail = /\S+@S+\.\S+/;
+    // const regexEmail = true
 
     if (!form.email.trim()) {
       errors.email = "Email is required! Cannot be blank!";
-    } else if (!regexEmail.test(form.email)) {
+    // } else if (!regexEmail.test(form.email)) {
+    } else if (regexEmail.test(form.email)) {
       errors.email = "Email format is invalid!";
     }
 

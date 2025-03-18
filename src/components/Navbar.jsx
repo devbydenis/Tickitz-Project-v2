@@ -3,62 +3,62 @@ import Button from "./Button";
 import {Link, NavLink} from "react-router";
 
 function Navbar() {
-  const [isShow, setIsShow] = useState(true)
+  const [isShowMenu, setIsShowMenu] = useState(true)
   const showMenu = () => {
-    setIsShow(!isShow)
+    setIsShowMenu(!isShowMenu)
   }
   const isLogin = () => {
-    // const getLoginInfo = JSON.parse(localStorage.getItem("userData"));
-    // const {isLogin} = getLoginInfo;
-    const isLogin = true;
-    if (!isLogin) {
+    // const getLoginInfo = JSON.parse(localStorage.getItem("user"));
+    // const { isLogin } = getLoginInfo;
+    const isLogin = false;
+    if (isLogin) {
       return (
         <>
+          <li>location</li>
           <li>
-            <a href="#">
-              <Button className={"bg-background text-primary"} name="Sign In" />
-            </a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#000"
+            >
+              <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+            </svg>
           </li>
           <li>
-            <a href="#">
-              <Button className={"bg-primary text-background"} name="Sign Up" />
-            </a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#000"
+            >
+              <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+            </svg>
+          </li>
+          <li>
+            <img
+              src="src/assets/avatar.png"
+              alt="avatar"
+              width={56}
+              height={56}
+            />
           </li>
         </>
       );
     }
     return (
       <>
-        <li>location</li>
         <li>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#000"
-          >
-            <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
-          </svg>
+          <Link to="/auth">
+            <Button className={"bg-background text-primary"} name="Sign In" />
+          </Link>
         </li>
         <li>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#000"
-          >
-            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-          </svg>
-        </li>
-        <li>
-          <img
-            src="src/assets/avatar.png"
-            alt="avatar"
-            width={56}
-            height={56}
-          />
+          <Link to="/auth/new">
+            <Button className={"bg-primary text-background"} name="Sign Up" />
+          </Link>
         </li>
       </>
     );
@@ -107,7 +107,9 @@ function Navbar() {
               <li>Buy Ticket</li>
             </Link>
           </ul>
-          <ul className="flex gap-2 items-center">{isLogin()}</ul>
+          <ul className="flex gap-2 items-center">
+            {isLogin()}
+          </ul>
         </nav>
         <nav className="flex justify-between py-4 px-6 md:hidden">
           <svg
@@ -154,7 +156,7 @@ function Navbar() {
           </button>
         </nav>
         <ul 
-          className={`${isShow ? "hidden" : "flex"} flex-col items-center absolute top-16 right-0 z-10 w-full bg-white shadow-2xl transform`}
+          className={`${isShowMenu ? "hidden" : "flex"} flex-col items-center absolute top-16 right-0 z-10 w-full bg-white shadow-2xl transform`}
         >
           <li className="cursor-pointer hover:underline"><NavLink to={'/'}>Home</NavLink></li>
           <li className="cursor-pointer hover:underline"><NavLink to={'#'}>Movie</NavLink></li>
