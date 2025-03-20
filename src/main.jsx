@@ -11,6 +11,7 @@ import AuthLayouts from "./layouts/AuthLayouts.jsx";
 import Main from "./layouts/Main.jsx";
 import Detail from "./pages/Detail.jsx";
 import MoviesAll from "./pages/MoviesAll.jsx";
+import Order from "./pages/Order.jsx";
 // import UserProvider from "./context/userContext.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -30,6 +31,7 @@ createRoot(document.getElementById("root")).render(
             </Route>
             <Route path="movie-all" element={<MoviesAll />}/>
           </Route>
+          <Route path="order" element={<Order />} />
           <Route path="profile">
             <Route index element={<Account />}/>
             <Route path="history" element={<History />}/>
