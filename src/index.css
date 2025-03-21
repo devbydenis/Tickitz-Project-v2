@@ -24,6 +24,8 @@
   --color-title-info-second: #aaaaaa;
   --color-background: #f5f6f8;
 
+  --template-seat: 2fr repeat(7, 1fr) 10fr repeat(7, 1fr)
+
   /* --radius-5px: 5px; */
 }
 

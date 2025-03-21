@@ -255,7 +255,7 @@ function Home() {
                 : ( <p>There are no movies in this category</p> )
             }
           </ul>
-          <Link to="" className="flex place-items-center justify-center my-5">
+          <Link to="/movie/all" className="flex place-items-center justify-center my-5">
             View All
             <svg
               width="20"

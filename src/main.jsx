@@ -17,27 +17,28 @@ import Order from "./pages/Order.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     {/* <UserProvider> */}
-      <BrowserRouter>
-        <Routes>
-          {/* <Route index element={<Home />}/> */}
-          <Route path="/auth" element={<AuthLayouts />}>
-            <Route index element={<Login />} />
-            <Route path="new" element={<Register />} />
-          </Route>
-          <Route element={<Main />}>
-            <Route index element={<Home />} />
-            <Route path="movie">
-              <Route path=":id" element={<Detail />} />
-            </Route>
-            <Route path="movie-all" element={<MoviesAll />}/>
-          </Route>
-          <Route path="order" element={<Order />} />
-          <Route path="profile">
-            <Route index element={<Account />}/>
-            <Route path="history" element={<History />}/>
+    <BrowserRouter>
+      <Routes>
+        {/* <Route index element={<Home />}/> */}
+        <Route path="/auth" element={<AuthLayouts />}>
+          <Route index element={<Login />} />
+          <Route path="new" element={<Register />} />
         </Route>
-        </Routes>
-      </BrowserRouter>
+        <Route element={<Main />}>
+          <Route index element={<Home />} />
+          <Route path="movie">
+            <Route path="all" element={<MoviesAll />} />
+            <Route path=":id" element={<Detail />} />
+          </Route>
+        <Route path="order" element={<Order />} />
+        </Route>
+        <Route path="order" element={<Order />} />
+        <Route path="profile">
+          <Route index element={<Account />} />
+          <Route path="history" element={<History />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
     {/* </UserProvider> */}
   </StrictMode>
 );
