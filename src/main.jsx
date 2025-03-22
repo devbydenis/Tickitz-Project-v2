@@ -14,6 +14,10 @@ import Order from "./pages/Order.jsx";
 import ErrorPage from "./pages/Error.jsx";
 import Payment from "./pages/Payment.jsx";
 import Ticket from "./pages/Ticket.jsx";
+import AdminLayouts from "./layouts/AdminLayouts.jsx";
+import Dashboard from "./pages/admin/Dashboard.jsx";
+import AddMovie from "./pages/admin/AddMovie.jsx";
+import ListMovie from "./pages/admin/ListMovie.jsx";
 // import UserProvider from "./context/userContext.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -32,14 +36,20 @@ createRoot(document.getElementById("root")).render(
             <Route path="all" element={<MoviesAll />} />
             <Route path=":id" element={<Detail />} />
           </Route>
-          <Route path="order" elpaymentement={<Order />} />
+          <Route path="order" element={<Order />} />
           <Route path="payment" element={<Payment />} />
           <Route path="ticket" element={<Ticket />} />
         </Route>
-        <Route path="order" element={<Order />} />
         <Route path="profile">
           <Route index element={<Account />} />
           <Route path="history" element={<History />} />
+        </Route>
+        <Route element={<AdminLayouts />}>
+          <Route path="admin">
+            <Route index element={<Dashboard />}/>
+            <Route path="add" element={<AddMovie />}/>
+            <Route path="list" element={<ListMovie />}/>
+          </Route>
         </Route>
         <Route path="*" element={<ErrorPage />}/>
       </Routes>
