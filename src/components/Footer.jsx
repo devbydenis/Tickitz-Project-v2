@@ -3,7 +3,7 @@ import React from 'react'
 function Footer() {
   return (
     <>
-      <footer className='grid gap-3 p-3 md:grid-cols-4'>
+      <footer className='grid gap-3 p-3 py-5 md:grid-cols-4'>
       <section className="tickitz-footer">
         <svg
           width="184"

@@ -13,6 +13,7 @@ import MoviesAll from "./pages/MoviesAll.jsx";
 import Order from "./pages/Order.jsx";
 import ErrorPage from "./pages/Error.jsx";
 import Payment from "./pages/Payment.jsx";
+import Ticket from "./pages/Ticket.jsx";
 // import UserProvider from "./context/userContext.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -31,8 +32,9 @@ createRoot(document.getElementById("root")).render(
             <Route path="all" element={<MoviesAll />} />
             <Route path=":id" element={<Detail />} />
           </Route>
-          <Route path="order" element={<Order />} />
+          <Route path="order" elpaymentement={<Order />} />
           <Route path="payment" element={<Payment />} />
+          <Route path="ticket" element={<Ticket />} />
         </Route>
         <Route path="order" element={<Order />} />
         <Route path="profile">
