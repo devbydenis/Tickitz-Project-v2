@@ -5,7 +5,7 @@ function AuthLayouts() {
   return (
     <>
       <main
-        className={`relative bg-cover bg-center h-screen`}
+        className={`relative bg-cover bg-center h-full py-5`}
         style={{backgroundImage: "url(src/assets/background.png)"}}
       >
         <Outlet />

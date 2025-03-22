@@ -85,7 +85,7 @@ function Login() {
         </div>
       ) : (
         <form
-          className="relative z-10 flex flex-col gap-7 my-5 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl"
+          className="relative z-10 flex flex-col gap-7 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl"
           onSubmit={handleInputSubmit}
         >
           <h1 className="text-4xl font-bold">Welcome Back👋</h1>

@@ -66,6 +66,7 @@ function Register() {
 
   return (
     <>
+
       <div className="absolute inset-0 bg-black opacity-80"></div>
       <img
         className="tickitz pt-14 mx-auto relative z-10 w-32 md:w-60 "
@@ -79,7 +80,7 @@ function Register() {
         </div>
       ) : (
         <form
-          className="relative z-10 flex flex-col gap-7 my-5 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl"
+          className="relative z-10 flex flex-col gap-7 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl"
           onSubmit={handleInputSubmit}
         >
           <h1 className="text-4xl font-bold">Welcome 👋</h1>
