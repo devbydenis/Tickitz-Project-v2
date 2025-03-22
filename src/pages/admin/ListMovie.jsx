@@ -43,7 +43,7 @@ function ListMovie() {
               <tr>
                 <td className="px-3 py-2 whitespace-nowrap">1</td>
                 <td className="px-3 py-2 whitespace-nowrap">
-                  <img className="mx-auto w-12 h-12 aspect-16/9" src={img} alt="thumbnail" />
+                  <img className="mx-auto w-12 h-12 rounded-lg" src={img} alt="thumbnail" />
                   {/* <div
                     className="mx-auto bg-cover w-12 h-12  bg-top rounded"
                     style={{backgroundImage: `url(${img})`}}
