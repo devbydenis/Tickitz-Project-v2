@@ -5,7 +5,9 @@ import Modal from "../../components/Modal";
 function Login() {
   const [showModal, setShowModal] = useState(false);
   const [inputType, setInputType] = useState("password");
+  const [success] = useState({})
   const [errors, setErrors] = useState({});
+  const [modalFailed, setModalFailed] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,20 +28,24 @@ function Login() {
 
   const validateForm = (form) => {
     const errors = {};
-    const regexEmail = /\S+@S+\.\S+/;
+    const regexEmail = /\S+@\S+\.\S+/
     // const regexEmail = true
 
     if (!form.email.trim()) {
       errors.email = "Email is required! Cannot be blank!";
     // } else if (!regexEmail.test(form.email)) {
-    } else if (regexEmail.test(form.email)) {
+    } else if (!regexEmail.test(form.email)) {
       errors.email = "Email format is invalid!";
+    } else {
+      success.email = "Email format is valid!"
     }
 
     if (!form.password) {
       errors.password = "Password is required! Cannot be blank!";
     } else if (form.password.length < 8) {
       errors.password = "Password must be atleast 8 character";
+    } else {
+      success.password = "Password format is valid!"
     }
 
     return errors;
@@ -47,7 +53,8 @@ function Login() {
 
   const handleInputSubmit = (e) => {
     e.preventDefault();
-    const dataRegist = JSON.parse(localStorage.getItem("user"));
+    const dataRegist = JSON.parse(localStorage.getItem('user'))
+    // console.log('ini data regist:', dataRegist);
     const newErrors = validateForm(formData);
     setErrors(newErrors);
 
@@ -56,13 +63,20 @@ function Login() {
         dataRegist.email === formData.email &&
         dataRegist.password === formData.password
       ) {
-        localStorage.setItem("user", {isLogin: true});
+        console.log('data login sama regist cocook bang')
         setShowModal(true)
+        setModalFailed(false)
         setTimeout(() => {
           navigate("/");
-        }, 2000);
+        }, 3000);
+      } else {
+        console.log("Data login regist ga cocok kocak!");
+        setShowModal(true)
+        setModalFailed(true)
+        setTimeout(() => {
+          setShowModal(false)
+        }, 5000);
       }
-      console.log("Submit form successfully!");
     } else {
       console.log("Submit form failed");
     }
@@ -79,11 +93,14 @@ function Login() {
         src="src/assets/tickitz.svg"
         alt="tickitz-logo"
       />
-      {showModal ? (
-        <div className=" absolute inset-0 bg-[#121212c2] z-20 flex justify-center items-center">
-          <Modal />
+      
+        <div className={`${showModal ? 'flex' : 'hidden'} absolute inset-0 bg-[#121212c2] z-20 justify-center items-center`}>
+          { 
+            modalFailed 
+            ? <Modal title={'Login'} isSuccess={false}/>
+            : <Modal title={'Login'} isSuccess={true}/>
+          }
         </div>
-      ) : (
         <form
           className="relative z-10 flex flex-col gap-7 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl"
           onSubmit={handleInputSubmit}
@@ -110,9 +127,8 @@ function Login() {
               />
             </div>
             {/* isi element small dengan validation logic */}
-            {errors.email && (
-              <small className="text-red-500">{errors.email}</small>
-            )}
+            {errors.email && <small className="text-red-500">{errors.email}</small>}
+            {success.email && <small className="text-green-500">{success.email}</small>}
           </section>
           <section>
             <label className="text-title-info-first" htmlFor="password">
@@ -156,10 +172,8 @@ function Login() {
                 )}
               </a>
             </div>
-            {/* fill small text element with validation logic */}
-            {errors.password && (
-              <small className="text-red-500">{errors.password}</small>
-            )}
+            {errors.password && <small className="text-red-500">{errors.password}</small>}
+            {success.password && <small className="text-green-500">{success.password}</small>}
           </section>
           <button
             className="bg-primary font-bold text-background rounded h-12"
@@ -202,7 +216,6 @@ function Login() {
             </Link>
           </section>
         </form>
-      )}
     </>
   );
 }
