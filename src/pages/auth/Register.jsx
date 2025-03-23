@@ -10,7 +10,7 @@ function Register() {
   const [showLoaders, setShowLoaders] = useState(false);
   const [inputType, setInputType] = useState("password");
   const [errors, setErrors] = useState({});
-  const [success, setSuccess] = useState({});
+  const [success] = useState({});
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -56,7 +56,7 @@ function Register() {
     setErrors(newErrors);
     console.log(formData);
     if (Object.keys(newErrors).length === 0) {
-      localStorage.setItem("user", JSON.stringify(formData));
+      localStorage.setItem("user", JSON.stringify({...formData, isLogin: false}));
       setShowLoaders(true);
       setTimeout(() => {
         navigate("/auth");

@@ -64,6 +64,11 @@ function Login() {
         dataRegist.password === formData.password
       ) {
         console.log('data login sama regist cocook bang')
+        localStorage.setItem('userLogin', JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          isLogin: true
+        }))
         setShowModal(true)
         setModalFailed(false)
         setTimeout(() => {
