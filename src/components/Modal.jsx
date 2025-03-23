@@ -1,6 +1,6 @@
 import React from "react";
 
-function Modal() {
+function Modal({title}) {
   return (
     <>
       {/* <!-------------------------- Modal content --------------------------> */}
@@ -24,7 +24,7 @@ function Modal() {
           </div>
           <div className="mt-3 text-center">
             <span className="text-gray-900 text-base font-semibold leading-6">
-              Login Success
+              {title} Success
             </span>
             <p className="mt-2 text-gray-500 text-sm leading-5">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, nulla repellendus provident
