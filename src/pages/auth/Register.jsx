@@ -73,18 +73,16 @@ function Register() {
         alt="tickitz-logo"
       />
 
-      {showModal ? (
-        <div className=" absolute inset-0 bg-[#121212c2] z-20 flex justify-center items-center">
+        <div className={`${showModal ? 'flex' : 'hidden'} absolute inset-0 bg-[#121212c2] z-20 justify-center items-center`}>
           <Modal />
         </div>
-      ) : (
         <form
           className="relative z-10 flex flex-col gap-7 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl"
           onSubmit={handleInputSubmit}
         >
           <h1 className="text-4xl font-bold">Welcome 👋</h1>
           <p className="text-secondary font-normal">
-            Sign up with your correct data. Make sure your data is responsible
+            Sign up with your correct data. Make sure your data is correct 
           </p>
           <ul className="step-by-step hidden md:flex justify-around items-center gap-4">
             <li className="flex flex-col items-center">
@@ -183,7 +181,6 @@ function Register() {
           >
             Join for free
           </button>
-          {/* <!-- Change to submit type later! --> */}
           <section className="or">
             <section className="flex justify-center">
               <p className="text-title-info-first">
@@ -210,11 +207,11 @@ function Register() {
             </Link>
           </section>
         </form>
-      )}
+    
     </>
   );
 }
 
-// box-shadow: 0px 4px 10px 0px #00000014;
+
 
 export default Register;
