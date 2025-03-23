@@ -4,9 +4,10 @@ import googleLogo from "../../assets/google-logo.svg";
 import facebookLogo from "../../assets/facebook-logo.svg";
 import tickitzLogo from "../../assets/tickitz.svg";
 import Modal from "../../components/Modal";
+import Loaders from "../../components/Loaders";
 
 function Register() {
-  const [showModal, setShowModal] = useState(false);
+  const [showLoaders, setShowLoaders] = useState(false);
   const [inputType, setInputType] = useState("password");
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState({});
@@ -56,7 +57,7 @@ function Register() {
     console.log(formData);
     if (Object.keys(newErrors).length === 0) {
       localStorage.setItem("user", JSON.stringify(formData));
-      setShowModal(true);
+      setShowLoaders(true);
       setTimeout(() => {
         navigate("/auth");
       }, 2000);
@@ -79,11 +80,11 @@ function Register() {
       />
 
       <div
-        className={`${
-          showModal ? "flex" : "hidden"
-        } absolute inset-0 bg-[#121212c2] z-20 justify-center items-center`}
+        className={`
+          ${showLoaders ? "flex" : "hidden"} absolute inset-0 bg-[#121212c2] z-20 justify-center items-center`}
       >
-        <Modal title={"Register"} />
+        {/* <Modal title={"Register"} /> */}
+        <Loaders />
       </div>
       <FormRegister
         handleInputSubmit={handleInputSubmit}
@@ -201,8 +202,8 @@ function FormRegister(props) {
             )}
           </a>
         </div>
-        {/* fill small text element with validation logic */}
         {errors.password && <small className="text-red-500">{errors.password}</small>}
+        {success.password && <small className="text-green-500">{success.password}</small>}
       </section>
       <button
         className="bg-primary text-background font-bold rounded h-12"
