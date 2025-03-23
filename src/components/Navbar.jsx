@@ -4,13 +4,14 @@ import {Link, NavLink} from "react-router";
 
 function Navbar() {
   const [isShowMenu, setIsShowMenu] = useState(true)
+  const userLogin = JSON.parse(localStorage.getItem('userLogin'))
+  const { isLogin } = userLogin
   const showMenu = () => {
     setIsShowMenu(!isShowMenu)
   }
-  const isLogin = () => {
+  const isLoginUser = () => {
     // const getLoginInfo = JSON.parse(localStorage.getItem("user"));
     // const { isLogin } = getLoginInfo;
-    const isLogin = false;
     if (isLogin) {
       return (
         <>
@@ -38,12 +39,14 @@ function Navbar() {
             </svg>
           </li>
           <li>
-            <img
-              src="src/assets/avatar.png"
-              alt="avatar"
-              width={56}
-              height={56}
-            />
+            <Link to={'profile'}>
+              <img
+                src="src/assets/avatar.png"
+                alt="avatar"
+                width={56}
+                height={56}
+              />
+            </Link>
           </li>
         </>
       );
@@ -90,25 +93,25 @@ function Navbar() {
           <ul className="flex gap-5">
             <Link
               className="text-title-info-first font-medium hover:underline underline-offset-4"
-              to="#"
+              to="/"
             >
               <li>Home</li>
             </Link>
             <Link
               className="text-title-info-first font-medium hover:underline underline-offset-4"
-              to="#"
+              to="movie/all"
             >
               <li>Movie</li>
             </Link>
             <Link
               className="text-title-info-first font-medium hover:underline underline-offset-4"
-              to="#"
+              to="movie/all"
             >
               <li>Buy Ticket</li>
             </Link>
           </ul>
           <ul className="flex gap-2 items-center">
-            {isLogin()}
+            {isLoginUser()}
           </ul>
         </nav>
         <nav className="flex justify-between py-4 px-6 md:hidden">
@@ -159,9 +162,9 @@ function Navbar() {
           className={`${isShowMenu ? "hidden" : "flex"} flex-col items-center absolute top-16 right-0 z-10 w-full bg-white shadow-2xl transform`}
         >
           <li className="cursor-pointer hover:underline"><NavLink to={'/'}>Home</NavLink></li>
-          <li className="cursor-pointer hover:underline"><NavLink to={'#'}>Movie</NavLink></li>
-          <li className="cursor-pointer hover:underline"><NavLink to={'#'}>Buy Ticket</NavLink></li>
-          <li className="cursor-pointer hover:underline"><NavLink to={'#'}>Profil</NavLink></li>
+          <li className="cursor-pointer hover:underline"><NavLink to={'movie/all'}>Movie</NavLink></li>
+          <li className="cursor-pointer hover:underline"><NavLink to={'movie/all'}>Buy Ticket</NavLink></li>
+          <li className="cursor-pointer hover:underline"><NavLink to={'profile'}>Profil</NavLink></li>
         </ul>
       </header>
     </>

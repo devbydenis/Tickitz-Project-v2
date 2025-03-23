@@ -18,6 +18,7 @@ import AdminLayouts from "./layouts/AdminLayouts.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import AddMovie from "./pages/admin/AddMovie.jsx";
 import ListMovie from "./pages/admin/ListMovie.jsx";
+import ProfileLayout from "./layouts/ProfileLayout.jsx";
 // import UserProvider from "./context/userContext.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -39,10 +40,12 @@ createRoot(document.getElementById("root")).render(
           <Route path="order" element={<Order />} />
           <Route path="payment" element={<Payment />} />
           <Route path="ticket" element={<Ticket />} />
-        </Route>
         <Route path="profile">
-          <Route index element={<Account />} />
-          <Route path="history" element={<History />} />
+          <Route element={<ProfileLayout />}>
+            <Route index element={<Account />} />
+            <Route path="history" element={<History />} />
+          </Route>
+        </Route>
         </Route>
         <Route element={<AdminLayouts />}>
           <Route path="admin">
