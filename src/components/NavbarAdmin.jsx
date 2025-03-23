@@ -130,19 +130,16 @@ function NavbarAdmin() {
         <ul
           className={`${
             isShowMenu ? "hidden" : "flex"
-          } flex-col items-center absolute top-16 right-0 z-10 w-full bg-white shadow-2xl transform`}
+          } flex-col items-center gap-3 absolute top-16 right-0 z-10 w-full bg-white shadow-2xl transform`}
         >
-          <li className="cursor-pointer hover:underline">
-            <NavLink to={"/"}>Home</NavLink>
+          <li className="cursor-pointer text-lg hover:scale-95 transition-all">
+            <NavLink className={'text-title-info-first'} to={"admin/list"}>Movie</NavLink>
           </li>
-          <li className="cursor-pointer hover:underline">
-            <NavLink to={"#"}>Movie</NavLink>
+          <li className="cursor-pointer text-lg hover:scale-95 transition-all">
+            <NavLink className={'text-title-info-first'} to={"admin"}>Dashboard</NavLink>
           </li>
-          <li className="cursor-pointer hover:underline">
-            <NavLink to={"#"}>Buy Ticket</NavLink>
-          </li>
-          <li className="cursor-pointer hover:underline">
-            <NavLink to={"#"}>Profil</NavLink>
+          <li className="cursor-pointer text-lg hover:scale-95 transition-all">
+            <NavLink className={'text-title-info-first'} to={"admin/add"}>Add Movie</NavLink>
           </li>
         </ul>
       </header>
