@@ -1,15 +1,17 @@
 import React, {useState} from "react";
 import {Link, useNavigate} from "react-router";
-import Modal from "../components/Modal";
+import googleLogo from "../../assets/google-logo.svg";
+import facebookLogo from "../../assets/facebook-logo.svg";
+import tickitzLogo from "../../assets/tickitz.svg";
+import Modal from "../../components/Modal";
 
-function Login() {
+function Register() {
   const [showModal, setShowModal] = useState(false);
   const [inputType, setInputType] = useState("password");
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    isLogin: false
   });
   const navigate = useNavigate();
 
@@ -20,19 +22,16 @@ function Login() {
     setFormData({
       ...formData,
       [name]: value,
-      isLogin: true
     });
   };
 
   const validateForm = (form) => {
     const errors = {};
-    const regexEmail = /\S+@S+\.\S+/;
-    // const regexEmail = true
+    // const regexEmail = /\S+@\S+\.\S+/
 
     if (!form.email.trim()) {
       errors.email = "Email is required! Cannot be blank!";
-    // } else if (!regexEmail.test(form.email)) {
-    } else if (regexEmail.test(form.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
       errors.email = "Email format is invalid!";
     }
 
@@ -47,38 +46,33 @@ function Login() {
 
   const handleInputSubmit = (e) => {
     e.preventDefault();
-    const dataRegist = JSON.parse(localStorage.getItem("user"));
     const newErrors = validateForm(formData);
     setErrors(newErrors);
-
+    console.log(formData);
     if (Object.keys(newErrors).length === 0) {
-      if (
-        dataRegist.email === formData.email &&
-        dataRegist.password === formData.password
-      ) {
-        localStorage.setItem("user", {isLogin: true});
-        setShowModal(true)
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
-      }
+      localStorage.setItem("user", JSON.stringify(formData));
+      setShowModal(true);
+      setTimeout(() => {
+        navigate("/auth");
+      }, 2000);
       console.log("Submit form successfully!");
     } else {
       console.log("Submit form failed");
     }
   };
-
   const showPassword = () => {
     inputType === "password" ? setInputType("text") : setInputType("password");
   };
+
   return (
     <>
       <div className="absolute inset-0 bg-black opacity-80"></div>
       <img
-        className="tickitz pt-14 mx-auto relative z-10 w-32 md:w-60"
-        src="src/assets/tickitz.svg"
+        className="tickitz mx-auto relative z-10 w-32 md:w-60 "
+        src={tickitzLogo}
         alt="tickitz-logo"
       />
+
       {showModal ? (
         <div className=" absolute inset-0 bg-[#121212c2] z-20 flex justify-center items-center">
           <Modal />
@@ -88,20 +82,42 @@ function Login() {
           className="relative z-10 flex flex-col gap-7 mx-8 md:mx-auto py-6 px-16 bg-white rounded-xl md:w-xl"
           onSubmit={handleInputSubmit}
         >
-          <h1 className="text-4xl font-bold">Welcome Back👋</h1>
+          <h1 className="text-4xl font-bold">Welcome 👋</h1>
           <p className="text-secondary font-normal">
-            Sign in with your data that you entered during your registration
+            Sign up with your correct data. Make sure your data is responsible
           </p>
+          <ul className="step-by-step hidden md:flex justify-around items-center gap-4">
+            <li className="flex flex-col items-center">
+              <p className="rounded-full bg-primary text-background py-2 px-4 mb-3">
+                1
+              </p>
+              <p className="text-black font-medium">Fill More</p>
+            </li>
+            <li className="border-t-2 border-secondary border-dashed w-20 h-1"></li>
+            <li className="flex flex-col items-center">
+              <p className="rounded-full bg-secondary text-background py-2 px-4 mb-3">
+                2
+              </p>
+              <p className="text-secondary">Active</p>
+            </li>
+            <li className="border-t-2 border-secondary border-dashed w-20 h-1"></li>
+            <li className="flex flex-col items-center">
+              <p className="rounded-full bg-secondary text-background py-2 px-4 mb-3">
+                3
+              </p>
+              <p className="text-secondary">Done</p>
+            </li>
+          </ul>
           <section className="mt-6">
             <label
-              className="font-normal text-title-info-first"
+              className="font-normal text-title-info-first text-"
               htmlFor="email"
             >
               Email
             </label>
             <div className="input-wrapper">
               <input
-                className="input-form"
+                className="input-form "
                 type="email"
                 name="email"
                 id="email"
@@ -120,7 +136,7 @@ function Login() {
             </label>
             <div className="input-form flex items-center justify-between outline outline-gray-300 rounded">
               <input
-                className="w-full h-full focus:outline-none"
+                className="w-full focus:outline-none "
                 type={inputType}
                 name="password"
                 id="password"
@@ -162,18 +178,18 @@ function Login() {
             )}
           </section>
           <button
-            className="bg-primary font-bold text-background rounded h-12"
+            className="bg-primary text-background font-bold rounded h-12"
             type="submit"
           >
-            Login
+            Join for free
           </button>
           {/* <!-- Change to submit type later! --> */}
           <section className="or">
             <section className="flex justify-center">
               <p className="text-title-info-first">
-                Do not have an account?{" "}
-                <Link className="font-bold text-primary" to="/auth/new">
-                  Register
+                already have an account?{" "}
+                <Link className="font-bold" to="/auth">
+                  Login
                 </Link>
               </p>
             </section>
@@ -185,20 +201,12 @@ function Login() {
           </section>
           <section className="flex justify-around">
             <Link to="#" className="flex gap-3 p-5 rounded-xl shadow-md">
-              <img
-                className="mx-auto"
-                src="src/assets/google-logo.svg"
-                alt="google"
-              />
-              <p className="hidden md:block text-title-info-second">Google</p>
+              <img className="mx-auto" src={googleLogo} alt="google" />
+              <p className="hidden md:block text-title-info-first">Google</p>
             </Link>
             <Link to="#" className="flex gap-3 p-5 rounded-xl shadow-md">
-              <img
-                className="mx-auto"
-                src="src/assets/facebook-logo.svg"
-                alt="facebook"
-              />
-              <p className="hidden md:block text-title-info-second">Facebook</p>
+              <img className="mx-auto" src={facebookLogo} alt="facebook" />
+              <p className="hidden md:block text-title-info-first">Facebook</p>
             </Link>
           </section>
         </form>
@@ -207,4 +215,6 @@ function Login() {
   );
 }
 
-export default Login;
+// box-shadow: 0px 4px 10px 0px #00000014;
+
+export default Register;

@@ -11,7 +11,7 @@
     @apply border rounded px-3 py-1
   } */
   a, button {
-    @apply cursor-pointer text-primary
+    @apply cursor-pointer text-primary active:scale-95 transition-all
   }
 }
 @theme {

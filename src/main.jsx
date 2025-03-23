@@ -3,8 +3,8 @@ import {createRoot} from "react-dom/client";
 import "./index.css";
 import {BrowserRouter, Route, Routes} from "react-router";
 import Home from "./pages/homepage/Home.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
+import Login from "./pages/auth/Login.jsx";
+import Register from "./pages/auth/Register.jsx";
 import Account from "./pages/profile/Account.jsx";
 import AuthLayouts from "./layouts/AuthLayouts.jsx";
 import Main from "./layouts/Main.jsx";
@@ -31,7 +31,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="new" element={<Register />} />
         </Route>
         <Route element={<Main />}>
-          <Route index element={<Home />}/>
+          <Route index element={<Home />} />
           <Route path="movie">
             <Route path="all" element={<MoviesAll />} />
             <Route path=":id" element={<Detail />} />
@@ -46,12 +46,12 @@ createRoot(document.getElementById("root")).render(
         </Route>
         <Route element={<AdminLayouts />}>
           <Route path="admin">
-            <Route index element={<Dashboard />}/>
-            <Route path="add" element={<AddMovie />}/>
-            <Route path="list" element={<ListMovie />}/>
+            <Route index element={<Dashboard />} />
+            <Route path="add" element={<AddMovie />} />
+            <Route path="list" element={<ListMovie />} />
           </Route>
         </Route>
-        <Route path="*" element={<ErrorPage />}/>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
     {/* </UserProvider> */}
