@@ -5,7 +5,7 @@ function AdminLayouts() {
   return (
     <>
       <NavbarAdmin />
-      <main className="bg-[#A0A3BD33] h-screen">
+      <main className="bg-[#A0A3BD33] py-10">
         <Outlet />
       </main>
     </>

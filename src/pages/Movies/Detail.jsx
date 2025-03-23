@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
-import {API_KEY} from "../service";
+import {API_KEY} from "../../service";
 
 function Detail() {
   const [moviesDetail, setMoviesDetail] = useState([]);

@@ -4,7 +4,7 @@ import { todoReducer } from "./slices/todo";
 const store = configureStore({
   // pada createstore reducer jika lebih dari satu digabungkan menggunakan combineReducer
   reducer: {
-    todo: todoReducer
+    todo: todoReducer,
   },
   // devTools: constant.nodeEnv !== "production"
 })

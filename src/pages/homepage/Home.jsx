@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import hero1 from "../assets/hero-1.png";
-import hero2 from "../assets/hero-2.png";
-import hero3 from "../assets/hero-3.png";
-import hero4 from "../assets/hero-4.png";
-import Card from "../components/Card";
+import hero1 from "../../assets/hero-1.png";
+import hero2 from "../../assets/hero-2.png";
+import hero3 from "../../assets/hero-3.png";
+import hero4 from "../../assets/hero-4.png";
+import Card from "../../components/Card.jsx";
 import {Link} from "react-router";
-import { getGenres, getNowPlayingMovie, getUpComingMovies } from "../service.js";
+import { getGenres, getNowPlayingMovie, getUpComingMovies } from "../../service.js";
 
 function Home() {
   const [nowPlaying, setNowPlaying] = useState([]);
