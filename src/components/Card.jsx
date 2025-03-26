@@ -15,7 +15,7 @@ function Card({id, image, title, genres = []}) {
             Details
           </Link>
           <Link
-            to="#"
+            to="order"
             className="text-background outline outline-background w-36 py-3 text-center rounded hover:bg-primary hover:outline-none"
           >
             Buy Tickets

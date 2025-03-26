@@ -1,7 +1,10 @@
 import React, {useState} from "react";
 
 function Order() {
-  const [isModal, setIsModal] = useState(true);
+  const [isModal, _] = useState(false);
+  const rows = ["A", "B", "C", "D", "E", "F", "G"];
+  const rowLetters1 = [1, 2, 3, 4, 5, 6, 7];
+  const rowLetters2 = [8, 9, 10, 11, 12, 13, 14];
 
   return (
     <main className="relative bg-[#A0A3BD33]">
@@ -14,7 +17,11 @@ function Order() {
       <section className="md:grid md:grid-cols-[2fr_1fr]">
         <form className="bg-white rounded-lg ml-5 mb-10">
           <OrderInfo />
-          <OrderSeat />
+          <OrderSeat 
+            rows={rows}
+            rowLetters1={rowLetters1}
+            rowLetters2={rowLetters2}
+          />
           <SeatingKey />
           <OrderChoosed />
         </form>
@@ -81,31 +88,27 @@ function OrderInfo() {
   );
 }
 
-function SingleSeat({key}) {
-  return <div key={key} className="seat w-10 h-10 bg-secondary cursor-pointer"></div>;
-  // return (
-  //   <>
-  //     <input className="" type="checkbox" name={`choosedSeat`} id={`${key}`}/>
-  //     <label className="w-10 h-10 bg-secondary cursor-pointer" htmlFor={`${key}`}>
-  //     </label>
-  //   </>
-  // )
+function SingleSeat({id}) {
+  // return <div key={key} className="seat w-10 h-10 bg-secondary cursor-pointer"></div>;
+  return (
+    <>
+      <label className="w-10 h-10 bg-secondary cursor-pointer" htmlFor={`${id}`}>
+        <input className="hidden" type="checkbox" name={id} id={`${id}`}/>
+      </label>
+    </>
+  )
 }
 
-function SingleRow({letter}) {
+function SingleRow({letter, rowLetters1, rowLetters2}) {
   return (
     <>
       <p className="my-auto">{letter}</p>
-      {Array(7)
-        .fill(0)
-        .map((index) => {
-          return <SingleSeat key={index} />;
+      {rowLetters1.map((letter, index) => {
+          return <SingleSeat key={index} id={letter}/>;
         })}
       <div className="w-3 h-1"></div>
-      {Array(7)
-        .fill(0)
-        .map((index) => {
-          return <SingleSeat key={index} />;
+      {rowLetters2.map((letter, index) => {
+          return <SingleSeat key={index} id={letter}/>;
         })}
     </>
   );
@@ -136,16 +139,18 @@ function SingleRowLetter() {
   );
 }
 
-function OrderSeat() {
+function OrderSeat({rows, rowLetters1, rowLetters2}) {
   const createSeatLayout = () => {
-    const rows = ["A", "B", "C", "D", "E", "F", "G"];
+    // const rows = ["A", "B", "C", "D", "E", "F", "G"];
+    // const rowLetters1 = [1, 2, 3, 4, 5, 6, 7];
+    // const rowLetters2 = [8, 9, 10, 11, 12, 13, 14];
     return rows.map((element, index) => {
       return (
         <div
           key={index}
           className="grid grid-cols-(--template-seat) gap-y-4 gap-x-3"
         >
-          {<SingleRow letter={element} />}
+          {<SingleRow letter={element} rows={rows} rowLetters1={rowLetters1} rowLetters2={rowLetters2} />}
         </div>
       );
     });
@@ -161,7 +166,7 @@ function OrderSeat() {
             {createSeatLayout()}
             {/* <div className="flex gap-6 justify-between border"> */}
             <div className="grid grid-cols-(--template-seat) ml-3 gap-x-3">
-              <SingleRowLetter />
+              <SingleRowLetter rowLetters1={rowLetters1} rowLetters2={rowLetters2} />
             </div>
           </div>
         </div>
