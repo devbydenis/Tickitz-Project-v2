@@ -1,11 +1,19 @@
 import React from 'react'
+import tickitz from '../assets/footer/tickitz-blue.svg'
+import ebuid from '../assets/footer/ebuid.svg'
+import cinenone from '../assets/footer/cineone.svg'
+import hiflix from '../assets/footer/hiflix.svg'
+import facebook from '../assets/footer/facebook-tickitz.svg'
+import instagram from '../assets/footer/instagram-tickitz.svg'
+import twitter from '../assets/footer/twitter-tickitz.svg'
+import youtube from '../assets/footer/youtube-tickitz.svg'
 
 function Footer() {
   return (
     <>
       <footer className='grid gap-3 p-3 py-5 md:grid-cols-4'>
       <section className="tickitz-footer">
-        <img src="src/assets/footer/tickitz-blue.svg" alt="tickitz-blue"/>
+        <img src={tickitz} alt="tickitz-blue"/>
         <p className='font-normal text-title-info-first'>
           Stop waiting in line. Buy tickets conveniently, watch movies quietly.
         </p>
@@ -23,13 +31,13 @@ function Footer() {
         <h5>Our Sponsor</h5>
         <div>
           <li>
-            <img src="src/assets/footer/ebuid.svg" alt="ebuid" />
+            <img src={ebuid} alt="ebuid" />
           </li>
           <li>
-            <img src="src/assets/footer/cineone.svg" alt="cineone" />
+            <img src={cinenone} alt="cineone" />
           </li>
           <li>
-            <img src="src/assets/footer/hiflix.svg" alt="hiflix" />
+            <img src={hiflix} alt="hiflix" />
           </li>
         </div>
       </ul>
@@ -37,19 +45,19 @@ function Footer() {
         <h5>Follow Us</h5>
         <div className='flex gap-3 flex-wrap'>
           <li className='flex gap-1'>
-            <img src="src/assets/footer/facebook-tickitz.svg" alt="facebook" />
+            <img src={facebook} alt="facebook" />
             <span className='hidden md:block text-title-info-first'>Tickitz Cinema id</span>
           </li>
           <li className='flex gap-1'>
-            <img src="src/assets/footer/instagram-tickitz.svg" alt="instagram" />
+            <img src={instagram} alt="instagram" />
             <span className='hidden md:block text-title-info-first'>tickitz.id</span>
           </li>
           <li className='flex gap-1'>
-            <img src="src/assets/footer/twitter-tickitz.svg" alt="twitter" />
+            <img src={twitter} alt="twitter" />
             <span className='hidden md:block text-title-info-first'>tickitz.id</span>
           </li>
           <li className='flex gap-1'>
-            <img src="src/assets/footer/youtube-tickitz.svg" alt="" />
+            <img src={youtube} alt="" />
             <span className='hidden md:block text-title-info-first'>Tickitz Cinema id</span>
           </li>
         </div>
