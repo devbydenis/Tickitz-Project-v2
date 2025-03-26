@@ -10,7 +10,7 @@
   /* input {
     @apply border rounded px-3 py-1
   } */
-  a, button {
+  button {
     @apply cursor-pointer text-primary active:scale-95 transition-all
   }
 }
@@ -38,5 +38,18 @@
   }
   .card-img {
     @apply w-60 h-[23rem]
+  }
+  .tempelate-area-profile-desktop {
+    grid-template-areas: 
+      "infoProfile navProfile navProfile"
+      "infoProfile mainProfile mainProfile"
+    ;
+  }
+  .tempelate-area-profile-mobile {
+    grid-template-areas: 
+      "navProfile"
+      "infoProfile"
+      "mainProfile"
+    ;
   }
 }

@@ -26,10 +26,10 @@ function Footer() {
             <img src="src/assets/footer/ebuid.svg" alt="ebuid" />
           </li>
           <li>
-            <img src="src/assets/footer/cineone.svg" alt="" />
+            <img src="src/assets/footer/cineone.svg" alt="cineone" />
           </li>
           <li>
-            <img src="src/assets/footer/hiflix.svg" alt="" />
+            <img src="src/assets/footer/hiflix.svg" alt="hiflix" />
           </li>
         </div>
       </ul>

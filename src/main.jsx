@@ -5,9 +5,9 @@ import {BrowserRouter, Route, Routes} from "react-router";
 import Home from "./pages/homepage/Home.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
-import Account from "./pages/profile/Account.jsx";
 import AuthLayouts from "./layouts/AuthLayouts.jsx";
-import Main from "./layouts/Main.jsx";
+import Account from "./pages/profile/Account.jsx";
+import MainLayouts from "./layouts/MainLayouts.jsx";
 import Detail from "./pages/movies/Detail.jsx";
 import MoviesAll from "./pages/movies/MoviesAll.jsx";
 import Order from "./pages/checkout/Order.jsx";
@@ -19,6 +19,7 @@ import AdminLayouts from "./layouts/AdminLayouts.jsx";
 import ProfileLayout from "./layouts/ProfileLayout.jsx";
 import AddMovie from "./pages/admin/AddMovie.jsx";
 import ListMovie from "./pages/admin/ListMovie.jsx";
+import History from "./pages/profile/History.jsx";
 // import Testing from "./pages/Testing.jsx";
 // import UserProvider from "./context/userContext.jsx";
 
@@ -32,7 +33,8 @@ createRoot(document.getElementById("root")).render(
           <Route index element={<Login />} />
           <Route path="new" element={<Register />} />
         </Route>
-        <Route element={<Main />}>
+
+        <Route element={<MainLayouts />}>
           <Route index element={<Home />} />
           <Route path="movie">
             <Route path="all" element={<MoviesAll />} />
@@ -44,10 +46,12 @@ createRoot(document.getElementById("root")).render(
           <Route path="profile">
             <Route element={<ProfileLayout />}>
               <Route index element={<Account />} />
+              <Route path="account" element={<Account />} />
               <Route path="history" element={<History />} />
             </Route>
           </Route>
         </Route>
+
         <Route element={<AdminLayouts />}>
           <Route path="admin">
             <Route index element={<Dashboard />} />
@@ -55,6 +59,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="list" element={<ListMovie />} />
           </Route>
         </Route>
+
         <Route path="*" element={<ErrorPage />} />
         {/* <Route path="testing" element={<Testing />} /> */}
       </Routes>
