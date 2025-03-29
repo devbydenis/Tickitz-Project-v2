@@ -2,16 +2,112 @@ import React from "react";
 import dropDownArrow from "../../assets/arrow-drop-down.svg";
 import cineone from "../../assets/cineone.svg";
 import qrcode from "../../assets/qrcode.svg";
+import {useState} from "react";
+import {NavLink} from "react-router";
+import avatar from "../../assets/avatar.png";
+import star from "../../assets/star.svg";
 function History() {
   return (
     <>
-      <section>
+      <AccountInfo />
+      <NavProfile />
+      <section className="col-span-2">
         <CardHistory
           cinema={cineone}
           date="Tuesday, 07 July 2020 - 04:30pm"
           title="Spider-Man: Homecoming"
           isTicketPaid={false}
         />
+        <CardHistory
+          cinema={cineone}
+          date="Tuesday, 07 July 2020 - 04:30pm"
+          title="Spider-Man: Homecoming"
+          isTicketPaid={true}
+        />
+      </section>
+    </>
+  );
+}
+
+function NavProfile() {
+  return (
+    <nav className="bg-white mb-10 md:mb-5 md:mt-10 rounded-2xl p-5 flex justify-center md:justify-start px-5 md:mr-8 gap-5 h-20 col-span-2">
+      <NavLink
+        to="/profile/account"
+        className={({isActive}) =>
+          isActive
+            ? "border-b-3 border-primary tracking-wider"
+            : "tracking-wider"
+        }
+      >
+        Detail Account
+      </NavLink>
+      <NavLink
+        to="/profile/history"
+        className={({isActive}) =>
+          isActive
+            ? "border-b-3 font-bold border-primary tracking-wider"
+            : "tracking-wider"
+        }
+      >
+        Order History
+      </NavLink>
+    </nav>
+  );
+}
+
+function AccountInfo({showEditProfile, setShowEditProfile}) {
+  return (
+    <>
+      <section className="hidden bg-white rounded-3xl m-10 md:flex flex-col row-span-2 h-fit">
+        <div className="info p-10">
+          <h1 className="text-start text-title-info-first">INFO</h1>
+          <img
+            className="mx-auto my-8"
+            src={avatar}
+            alt="profile avatar"
+            width={132}
+            height={132}
+          />
+          <p className="text-center mb-3 text-xl font-bold tracking-wider">
+            Jonas Rodriguez
+          </p>
+          <p className="text-center text-title-info-second">Moviegoers</p>
+        </div>
+        <div className="border-b-2 border-gray-300"></div>
+        <div className="loyalty p-10 relative">
+          <h1 className="text-start text-title-info-first font-semibold mb-5">
+            Loyalty Poin
+          </h1>
+          <div className="w-full bg-primary rounded-xl p-4 text-white">
+            <p className="mb-5 text-lg font-bold">Moviegoers</p>
+            <p className="text-2xl">
+              320 <small className="text-[10px]">points</small>
+            </p>
+            <div className="w-20 h-20 absolute rounded-full top-12 right-5 bg-white opacity-30"></div>
+            <div className="w-20 h-20 absolute rounded-full top-18 right-3 bg-white opacity-30"></div>
+            <img
+              className="absolute top-20 right-10 w-12 h-12"
+              src={star}
+              alt=""
+            />
+          </div>
+          <div>
+            <p className="text-center text-title-info-second mt-5 mb-1.5">
+              180 points become a master
+            </p>
+            <div className="mb-6 h-4 w-full bg-neutral-200 rounded-2xl">
+              <div className="h-4 bg-primary w-1/4  rounded-2xl"></div>
+            </div>
+          </div>
+        </div>
+        <button
+          className="border-1 font-bold py-3 mx-4 mb-6 active:scale-95 active:opacity-50 rounded-lg border-primary sm:hidden"
+          type="button"
+          onClick={() => setShowEditProfile(!showEditProfile)}
+        >
+          Edit Profile
+        </button>
       </section>
     </>
   );
@@ -19,52 +115,61 @@ function History() {
 
 function CardHistory(props) {
   const {cinema, date, title, isTicketPaid} = props;
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <section className="my-8 mx-6 bg-white rounded-lg">
-        <div className=" p-6">
+      <section className="my-8 md:my-6 mx-6 md:ml-0 bg-white rounded-lg">
+        <div className=" p-6 md:flex md:justify-between md:flex-row-reverse">
           <img className="mb-5" src={cinema} alt="cineone-logo" />
-          <p className="text-[13px] text-secondary tracking-widest">{date}</p>
-          <p className="text-lg font-semibold tracking-wider">{title}</p>
+          <div>
+            <p className="text-[13px] text-secondary tracking-widest">{date}</p>
+            <p className="text-lg font-semibold tracking-wider mt-2">{title}</p>
+          </div>
         </div>
         <div className="border-b-2 border-gray-300"></div>
-        <div className="status p-6 flex flex-col gap-4">
+        <div className="status p-6 flex flex-col md:flex-row gap-4 ">
+          <div className="flex flex-col md:flex-row gap-5 md:grow">
+            <span
+              className={`${
+                isTicketPaid
+                  ? "bg-[#6E719133] text-title-info-first"
+                  : "bg-[#00BA8833] text-[#00BA88]"
+              } w-full py-3 text-center font-bold tracking-wider rounded-lg1`}
+            >
+              {isTicketPaid ? "Ticket used" : "Ticket in active"}
+            </span>
+            <span
+              className={`${
+                isTicketPaid
+                  ? "bg-[#6E719133] text-title-info-first"
+                  : "bg-[#E82C2C33] text-[#E82C2C]"
+              } w-full py-3 text-center font-bold tracking-wider rounded-lg`}
+            >
+              {isTicketPaid ? "Paid" : "Not Paid"}
+            </span>
+          </div>
           <span
-            className={`${
-              isTicketPaid
-                ? "bg-[#6E719133] text-title-info-first"
-                : "bg-[#00BA8833] text-[#00BA88]"
-            } w-full py-3 text-center font-bold tracking-wider rounded-lg1`}
-          >
-            {isTicketPaid ? "Ticket used" : "Ticket in active"}
-          </span>
-          <span
-            className={`${
-              isTicketPaid
-                ? "bg-[#6E719133] text-title-info-first"
-                : "bg-[#E82C2C33] text-[#E82C2C]"
-            } w-full py-3 text-center font-bold tracking-wider rounded-lg`}
-          >
-            {isTicketPaid ? "Paid" : "Not Paid"}
-          </span>
-          <span
-            className="text-center flex justify-center gap-3 mt-6 text-lg text-secondary font-normal cursor-pointer"
-            onClick={() => {}}
+            className="text-center flex justify-center gap-3 md:w-40 mt-6 text-lg text-secondary font-normal cursor-pointer"
+            onClick={() => setShowModal(!showModal)}
           >
             <p>Show Detail</p>
             <img
-              className={`rotate-180 transition-all`}
+              className={`${showModal ? "rotate-180" : ""} transition-all`}
               src={dropDownArrow}
               alt="dropdown arrow"
             />
           </span>
-          <div className="detail-card">
-            <h2 className="font-semibold text-2xl mb-8 mt-3">
-              Ticket Information
-            </h2>
-            {isTicketPaid ? <TicketPaid /> : <TicketNotPaid />}
-          </div>
+        </div>
+        <div
+          className={`detail-card p-6 transition-all ${
+            showModal ? "block" : "hidden"
+          }`}
+        >
+          <h2 className="font-semibold text-2xl mb-8 mt-3">
+            Ticket Information
+          </h2>
+          {isTicketPaid ? <TicketPaid /> : <TicketNotPaid />}
         </div>
       </section>
     </>
@@ -83,11 +188,15 @@ function TicketPaid() {
         <div className="grid grid-cols-3 gap-y-3 w-full mt-5">
           <div>
             <p className="text-xs text-[#AAAAAA]">Category</p>
-            <p className="tracking-wider text-sm font-semibold text-[#14142B] mt-1">PG-13</p>
+            <p className="tracking-wider text-sm font-semibold text-[#14142B] mt-1">
+              PG-13
+            </p>
           </div>
           <div>
             <p className="text-xs text-[#AAAAAA]">Time</p>
-            <p className="tracking-wider text-sm font-semibold text-[#14142B] mt-1">2.00pm</p>
+            <p className="tracking-wider text-sm font-semibold text-[#14142B] mt-1">
+              2.00pm
+            </p>
           </div>
           <div>
             <p className="text-xs text-[#AAAAAA]">Seats</p>
@@ -105,15 +214,21 @@ function TicketPaid() {
           </div>
           <div>
             <p className="text-xs text-[#AAAAAA]">Date</p>
-            <p className="tracking-wider text-sm font-semibold text-[#14142B] mt-1">07 Jul</p>
+            <p className="tracking-wider text-sm font-semibold text-[#14142B] mt-1">
+              07 Jul
+            </p>
           </div>
           <div>
             <p className="text-xs text-[#AAAAAA]">Count</p>
-            <p className="tracking-wider text-sm font-semibold text-[#14142B] mt-1">3 pcs</p>
+            <p className="tracking-wider text-sm font-semibold text-[#14142B] mt-1">
+              3 pcs
+            </p>
           </div>
           <div className="mt-5 flex flex-col justify-between rounded-lg">
             <p className="text-title-info-first font-semibold text-lg">Total</p>
-            <p className="text-2xl tracking-widest text-[#14142B] mt-3 font-bold">$30</p>
+            <p className="text-2xl tracking-widest text-[#14142B] mt-3 font-bold">
+              $30
+            </p>
           </div>
         </div>
       </section>

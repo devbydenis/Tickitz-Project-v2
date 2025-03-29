@@ -6,7 +6,7 @@ import Home from "./pages/homepage/Home.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import AuthLayouts from "./layouts/AuthLayouts.jsx";
-import Account from "./pages/profile/DetailAccount.jsx";
+import DetailAccount from "./pages/profile/DetailAccount.jsx";
 import MainLayouts from "./layouts/MainLayouts.jsx";
 import Detail from "./pages/movies/Detail.jsx";
 import MoviesAll from "./pages/movies/MoviesAll.jsx";
@@ -21,14 +21,11 @@ import AddMovie from "./pages/admin/AddMovie.jsx";
 import ListMovie from "./pages/admin/ListMovie.jsx";
 import History from "./pages/profile/History.jsx";
 // import Testing from "./pages/Testing.jsx";
-// import UserProvider from "./context/userContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* <UserProvider> */}
     <BrowserRouter>
       <Routes>
-        {/* <Route index element={<Home />}/> */}
         <Route path="/auth" element={<AuthLayouts />}>
           <Route index element={<Login />} />
           <Route path="new" element={<Register />} />
@@ -46,8 +43,8 @@ createRoot(document.getElementById("root")).render(
         </Route>
 
         <Route path="profile" element={<ProfileLayout />}>
-          <Route index element={<Account />} />
-          <Route path="account" element={<Account />} />
+          {/* <Route index element={<DetailAccount />} /> */}
+          <Route path="account" element={<DetailAccount />} />
           <Route path="history" element={<History />} />
         </Route>
 
@@ -63,6 +60,5 @@ createRoot(document.getElementById("root")).render(
         {/* <Route path="testing" element={<Testing />} /> */}
       </Routes>
     </BrowserRouter>
-    {/* </UserProvider> */}
   </StrictMode>
 );

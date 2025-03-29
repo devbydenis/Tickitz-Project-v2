@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import avatar from '../assets/avatar.png'
 import Button from "./Button";
 import {Link, NavLink} from "react-router";
 
@@ -41,7 +42,7 @@ function Navbar() {
           <li>
             <Link to={'profile'}>
               <img
-                src="src/assets/avatar.png"
+                src={avatar}
                 alt="avatar"
                 width={56}
                 height={56}
@@ -69,7 +70,7 @@ function Navbar() {
   return (
     <>
       <header className="bg-white">
-        <nav className="justify-between items-center px-6 py-4 hidden md:flex">
+        <nav className="justify-between xl:justify-evenly items-center px-6 py-4 hidden md:flex">
           <svg
             width="130"
             height="52"
