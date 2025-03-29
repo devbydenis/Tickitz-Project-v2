@@ -7,7 +7,7 @@ function ProfileLayout() {
   return (
     <>
       <Navbar />
-      <div className="bg-[#A0A3BD33] pb-5 border-2 relative border-red-400">
+      <div className="bg-[#A0A3BD33] pb-5 relative">
         {/* <div className='absolute inset-0 bg-black opacity-50'></div> */}
           <NavProfile />
           <Outlet /> 

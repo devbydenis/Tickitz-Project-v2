@@ -61,7 +61,7 @@ function AccountInfo({setShowEditProfile}) {
           </div>
         </div>
         <button
-          className="border-1 py-3 mx-4 mb-6 active:scale-95 active:opacity-50 rounded-lg border-primary sm:hidden"
+          className="border-1 font-bold py-3 mx-4 mb-6 active:scale-95 active:opacity-50 rounded-lg border-primary sm:hidden"
           type="button"
           onClick={() => setShowEditProfile(true)}
         >
