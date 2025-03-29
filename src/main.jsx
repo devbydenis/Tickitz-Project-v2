@@ -6,7 +6,7 @@ import Home from "./pages/homepage/Home.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import AuthLayouts from "./layouts/AuthLayouts.jsx";
-import Account from "./pages/profile/Account.jsx";
+import Account from "./pages/profile/DetailAccount.jsx";
 import MainLayouts from "./layouts/MainLayouts.jsx";
 import Detail from "./pages/movies/Detail.jsx";
 import MoviesAll from "./pages/movies/MoviesAll.jsx";
@@ -43,13 +43,12 @@ createRoot(document.getElementById("root")).render(
           <Route path="order" element={<Order />} />
           <Route path="payment" element={<Payment />} />
           <Route path="ticket" element={<Ticket />} />
-          <Route path="profile">
-            <Route element={<ProfileLayout />}>
-              <Route index element={<Account />} />
-              <Route path="account" element={<Account />} />
-              <Route path="history" element={<History />} />
-            </Route>
-          </Route>
+        </Route>
+
+        <Route path="profile" element={<ProfileLayout />}>
+          <Route index element={<Account />} />
+          <Route path="account" element={<Account />} />
+          <Route path="history" element={<History />} />
         </Route>
 
         <Route element={<AdminLayouts />}>
