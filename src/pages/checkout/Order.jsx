@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import arrowDown from "../../assets/arrow-down.svg";
+import arrowRight from "../../assets/arrow-right.svg";
 
 function Order() {
   const [isModal, _] = useState(false);
@@ -201,12 +203,12 @@ function SeatingKey() {
       <p className="mb-9 font-semibold text-lg">Seating Key</p>
       <div className="flex flex-wrap gap-3">
         <div className="flex justify-around w-full">
-          <div className="flex items-start">
-            <img src={"src/assets/arrow-down.svg"} alt="arrow-up" width={20} />
+          <div className="flex items-start md:hidden">
+            <img src={arrowDown} alt="arrow-up" width={20} />
             <p className="font-bold">A - G</p>
           </div>
-          <div className="flex items-start gap-1">
-            <img src={"src/assets/arrow-right.svg"} alt="arrow-right" />
+          <div className="flex items-start gap-1 md:hidden">
+            <img src={arrowRight} alt="arrow-right" />
             <p className="font-bold">1 - 14</p>
           </div>
         </div>
@@ -236,11 +238,11 @@ function SeatingKey() {
 function OrderChoosed() {
   return (
     <section className="order-choosed p-4 m-4 bg-white rounded-lg">
-      <span className="flex justify-between">
+      <span className="flex justify-between md:hidden">
         <p className="text-secondary text-lg font-semibold">Choosed</p>
         <p>C4</p>
       </span>
-      <span className="flex justify-evenly mt-5">
+      <span className="flex justify-evenly mt-5 md:hidden">
         <select
           className="bg-gray-200 rounded p-5 w-30 cursor-pointer"
           name="seat-letter"
@@ -276,7 +278,7 @@ function OrderChoosed() {
         </select>
       </span>
       <button
-        className="block bg-white text-primary border-1 border-primary w-full py-3 rounded-lg mt-5 "
+        className="block bg-white text-primary border-1 border-primary w-full py-3 rounded-lg mt-5 md:hidden"
         type="button"
       >
         Add new seat
