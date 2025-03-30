@@ -70,7 +70,7 @@ function Navbar() {
   return (
     <>
       <header className="bg-white">
-        <nav className="justify-between xl:justify-evenly items-center px-6 py-4 hidden md:flex">
+        <nav className="justify-between 2xl:justify-evenly items-center px-6 py-4 hidden md:flex">
           <svg
             width="130"
             height="52"

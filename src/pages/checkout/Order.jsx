@@ -3,32 +3,34 @@ import React, {useState} from "react";
 function Order() {
   const [isModal, _] = useState(false);
   const rows = ["A", "B", "C", "D", "E", "F", "G"];
-  const rowLetters1 = [1, 2, 3, 4, 5, 6, 7];
-  const rowLetters2 = [8, 9, 10, 11, 12, 13, 14];
+  const rowNumbers1 = [1, 2, 3, 4, 5, 6, 7];
+  const rowNumbers2 = [8, 9, 10, 11, 12, 13, 14];
 
   return (
-    <main className="relative bg-[#A0A3BD33]">
-      <div
-        className={`${
-          isModal ? "block" : "hidden"
-        } bg-black absolute inset-0 opacity-80`}
-      ></div>
-      <OrderSteps />
-      <section className="md:grid md:grid-cols-[2fr_1fr]">
-        <form className="bg-white rounded-lg ml-5 mb-10">
-          <OrderInfo />
-          <OrderSeat 
-            rows={rows}
-            rowLetters1={rowLetters1}
-            rowLetters2={rowLetters2}
-          />
-          <SeatingKey />
-          <OrderChoosed />
-        </form>
-        <ModalOrderDesktop />
-        <ModalOrder isModal={isModal}/>
-      </section>
-    </main>
+    <>
+      <main className="relative bg-[#A0A3BD33] pt-5">
+        <div
+          className={`${
+            isModal ? "block" : "hidden"
+          } bg-black absolute inset-0 opacity-80`}
+        ></div>
+        <OrderSteps />
+        <section className="md:grid lg:grid-cols-[2fr_1fr]">
+          <form className="bg-white rounded-lg py-2 mx-5 mb-10">
+            <OrderInfo />
+            <OrderSeat
+              rows={rows}
+              rowNumbers1={rowNumbers1}
+              rowNumbers2={rowNumbers2}
+            />
+            <SeatingKey />
+            <OrderChoosed />
+          </form>
+          <ModalOrderDesktop />
+          <ModalOrder isModal={isModal} />
+        </section>
+      </main>
+    </>
   );
 }
 function OrderSteps() {
@@ -66,7 +68,9 @@ function OrderInfo() {
           style={{backgroundImage: "url(src/assets/background.png)"}}
         ></div>
         <div>
-          <h1 className="mt-4 font-bold text-3xl md:text-2xl md:mt-1">Spiderman HomeComing</h1>
+          <h1 className="mt-4 font-bold text-3xl md:text-2xl md:mt-1">
+            Spiderman HomeComing
+          </h1>
           <ul className="mt-4 flex flex-wrap gap-3 justify-center md:mt-1">
             <li className="bg-[#A0A3BD1A] rounded-2xl px-4 py-1 text-secondary">
               Action
@@ -75,7 +79,9 @@ function OrderInfo() {
               Adventure
             </li>
           </ul>
-          <p className="mt-4 font-normal text-gray-900 md:mt-1">Regular - 13:00 PM</p>
+          <p className="mt-4 font-normal text-gray-900 md:mt-1">
+            Regular - 13:00 PM
+          </p>
           <button
             type="button"
             className="mt-4 bg-[#1D4ED833] text-primary px-3 py-1 rounded-xl active:scale-95 hover:outline hover:outline-primary transition-all "
@@ -89,48 +95,56 @@ function OrderInfo() {
 }
 
 function SingleSeat({id}) {
-  // return <div key={key} className="seat w-10 h-10 bg-secondary cursor-pointer"></div>;
   return (
     <>
-      <label className="w-10 h-10 bg-secondary cursor-pointer" htmlFor={`${id}`}>
-        <input className="hidden" type="checkbox" name={id} id={`${id}`}/>
+      <label
+        className="w-10 h-10 bg-[#D6D8E7] rounded cursor-pointer has-checked:bg-primary"
+        htmlFor={id}
+      >
+        <input className="hidden" type="checkbox" name={id} id={id} onClick={() => {console.log(id)}} />
       </label>
     </>
-  )
+  );
 }
 
-function SingleRow({letter, rowLetters1, rowLetters2}) {
+function SingleRow({letter, rowNumbers1, rowNumbers2}) {
   return (
     <>
-      <p className="my-auto">{letter}</p>
-      {rowLetters1.map((letter, index) => {
-          return <SingleSeat key={index} id={letter}/>;
-        })}
+      <p className="my-auto w-3">{letter}</p>
+      {rowNumbers1.map((number, index) => {
+        return <SingleSeat key={index} id={`${letter}${number}`} />;
+      })}
       <div className="w-3 h-1"></div>
-      {rowLetters2.map((letter, index) => {
-          return <SingleSeat key={index} id={letter}/>;
-        })}
+      {rowNumbers2.map((number, index) => {
+        return <SingleSeat key={index} id={`${letter}${number}`} />;
+      })}
     </>
   );
 }
 
 function SingleRowLetter() {
-  const rowLetters1 = [1, 2, 3, 4, 5, 6, 7];
-  const rowLetters2 = [8, 9, 10, 11, 12, 13, 14];
+  const rowNumbers1 = [1, 2, 3, 4, 5, 6, 7];
+  const rowNumbers2 = [8, 9, 10, 11, 12, 13, 14];
   return (
     <>
       <div></div>
-      {rowLetters1.map((item, index) => {
+      {rowNumbers1.map((item, index) => {
         return (
-          <div className="flex items-center justify-center w-10 h-10 " key={index}>
+          <div
+            className="flex items-center justify-center w-10 h-10 "
+            key={index}
+          >
             {item}
           </div>
         );
       })}
       <div className="w-3 h-1"></div>
-      {rowLetters2.map((item, index) => {
+      {rowNumbers2.map((item, index) => {
         return (
-          <div className="flex items-center justify-center w-10 h-10" key={index}>
+          <div
+            className="flex items-center justify-center w-10 h-10"
+            key={index}
+          >
             {item}
           </div>
         );
@@ -139,18 +153,22 @@ function SingleRowLetter() {
   );
 }
 
-function OrderSeat({rows, rowLetters1, rowLetters2}) {
+function OrderSeat({rows, rowNumbers1, rowNumbers2}) {
   const createSeatLayout = () => {
-    // const rows = ["A", "B", "C", "D", "E", "F", "G"];
-    // const rowLetters1 = [1, 2, 3, 4, 5, 6, 7];
-    // const rowLetters2 = [8, 9, 10, 11, 12, 13, 14];
     return rows.map((element, index) => {
       return (
         <div
           key={index}
           className="grid grid-cols-(--template-seat) gap-y-4 gap-x-3"
         >
-          {<SingleRow letter={element} rows={rows} rowLetters1={rowLetters1} rowLetters2={rowLetters2} />}
+          {
+            <SingleRow
+              letter={element}
+              rows={rows}
+              rowNumbers1={rowNumbers1}
+              rowNumbers2={rowNumbers2}
+            />
+          }
         </div>
       );
     });
@@ -160,13 +178,15 @@ function OrderSeat({rows, rowLetters1, rowLetters2}) {
     <>
       <section className="order-choose-seat bg-white rounded-lg mt-10 p-4 m-4">
         <p className="mb-9 font-semibold text-lg">Choose Your Seat</p>
-        <div className="seat-screen flex justify-center mb-10">SCREEN</div>
+        <div className="seat-screen flex justify-center mb-10 font-bold shadow-2xl">SCREEN</div>
         <div className="order-seat">
           <div className="flex flex-col gap-3 overflow-x-scroll">
             {createSeatLayout()}
-            {/* <div className="flex gap-6 justify-between border"> */}
             <div className="grid grid-cols-(--template-seat) ml-3 gap-x-3">
-              <SingleRowLetter rowLetters1={rowLetters1} rowLetters2={rowLetters2} />
+              <SingleRowLetter
+                rowNumbers1={rowNumbers1}
+                rowNumbers2={rowNumbers2}
+              />
             </div>
           </div>
         </div>
@@ -256,10 +276,16 @@ function OrderChoosed() {
         </select>
       </span>
       <button
-        className="block bg-primary text-white w-full py-3 rounded-lg mt-5 "
+        className="block bg-white text-primary border-1 border-primary w-full py-3 rounded-lg mt-5 "
         type="button"
       >
         Add new seat
+      </button>
+      <button
+        className="bg-primary text-background rounded-lg py-3 w-full mt-5"
+        type="button"
+      >
+        Submit
       </button>
     </section>
   );
