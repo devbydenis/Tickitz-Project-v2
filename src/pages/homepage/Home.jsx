@@ -67,8 +67,8 @@ function Home() {
       }
     }
     // getMovies()
-    getMovies(getNowPlayingMovie, setNowPlaying)
-    getMovies(getUpComingMovies, setUpComing)
+      getMovies(getNowPlayingMovie, setNowPlaying)
+      getMovies(getUpComingMovies, setUpComing)
     }, [])
     
     console.log("now playing", nowPlaying);
@@ -117,7 +117,7 @@ function Home() {
             {/* <div style={{ backgroundImage: "url('src/assets/hero-4.png')" }}></div> */}
           </div>
         </section>
-        <section className="why-choose-us pb-8 pt-[4.5rem] text-center md:text-start">
+        <section className="why-choose-us pb-8 pt-[4.5rem] text-center md:text-start md:mx-10">
           <h2 className="font-bold text-primary text-[1.125rem]/8 text-center md:text-start">
             WHY CHOOSE US
           </h2>
@@ -227,7 +227,7 @@ function Home() {
             </li>
           </ul>
         </section>
-        <section className="movies my-10">
+        <section className="movies my-10 md:mx-10">
           <h2 className="font-bold text-primary text-[1.125rem]/8 text-center">
             MOVIES
           </h2>
@@ -281,7 +281,7 @@ function Home() {
             </svg>
           </Link>
         </section>
-        <section className="up-coming-movies my-5 md:py-5">
+        <section className="up-coming-movies my-5 md:py-5 md:mx-10">
           <h2 className="font-bold text-primary text-[1.125rem]/8">
             UPCOMING MOVIES
           </h2>
@@ -309,7 +309,7 @@ function Home() {
             }
           </ul>
         </section>
-        <section className="subscribe flex flex-col items-center gap-9 py-14 bg-primary rounded-xl">
+        <section className="subscribe flex flex-col items-center gap-9 py-14 bg-primary rounded-xl md:mx-10">
           <p className="px-2.5 font-normal text-3xl/12 text-background text-center">
             Subscribe to our newsletter
           </p>
