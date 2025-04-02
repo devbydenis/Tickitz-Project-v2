@@ -11,7 +11,7 @@ import youtube from '../assets/footer/youtube-tickitz.svg'
 function Footer() {
   return (
     <>
-      <footer className='grid gap-3 p-3 py-5 md:grid-cols-4'>
+      <footer className='grid gap-3 p-3 py-5 md:grid-cols-4 md:mx-10'>
       <section className="tickitz-footer">
         <img src={tickitz} alt="tickitz-blue"/>
         <p className='font-normal text-title-info-first'>
