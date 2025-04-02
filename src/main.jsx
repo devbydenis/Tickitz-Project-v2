@@ -42,10 +42,11 @@ createRoot(document.getElementById("root")).render(
           <Route path="ticket" element={<Ticket />} />
         </Route>
 
-        <Route path="profile" element={<ProfileLayout />}>
-          {/* <Route index element={<DetailAccount />} /> */}
-          <Route path="account" element={<DetailAccount />} />
-          <Route path="history" element={<History />} />
+        <Route element={<ProfileLayout />}>
+          <Route path="profile">
+            <Route path="account" element={<DetailAccount />} />
+            <Route path="history" element={<History />} />
+          </Route>
         </Route>
 
         <Route element={<AdminLayouts />}>
