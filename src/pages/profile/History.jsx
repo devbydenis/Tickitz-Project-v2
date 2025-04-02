@@ -135,7 +135,7 @@ function CardHistory(props) {
                 isTicketPaid
                   ? "bg-[#6E719133] text-title-info-first"
                   : "bg-[#00BA8833] text-[#00BA88]"
-              } w-full py-3 text-center font-bold tracking-wider rounded-lg1`}
+              } w-full py-3 text-center font-bold tracking-wider rounded-lg`}
             >
               {isTicketPaid ? "Ticket used" : "Ticket in active"}
             </span>
