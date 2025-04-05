@@ -4,6 +4,7 @@ export const BASE_URL = import.meta.env.BASE_URL
 const urlNowPlayingMovie = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1`
 const urlUpComingMovies = `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1`
 const urlGenre = `https://api.themoviedb.org/3/genre/movie/list?language=en`
+const urlPopularMovies = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
 const options = {
   method: 'GET',
   headers: {
@@ -26,3 +27,9 @@ export function getUpComingMovies() {
   const response = fetch(urlUpComingMovies, options)
   return response
 }
+
+export function getPopularMovies() {
+  const response = fetch(urlPopularMovies, options)
+  return response
+}
+

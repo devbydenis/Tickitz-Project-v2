@@ -20,46 +20,49 @@ import ProfileLayout from "./layouts/ProfileLayout.jsx";
 import AddMovie from "./pages/admin/AddMovie.jsx";
 import ListMovie from "./pages/admin/ListMovie.jsx";
 import History from "./pages/profile/History.jsx";
+import ReduxProvider from "./redux/ReduxProvider.jsx";
 // import Testing from "./pages/Testing.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/auth" element={<AuthLayouts />}>
-          <Route index element={<Login />} />
-          <Route path="new" element={<Register />} />
-        </Route>
-
-        <Route element={<MainLayouts />}>
-          <Route index element={<Home />} />
-          <Route path="movie">
-            <Route path="all" element={<MoviesAll />} />
-            <Route path=":id" element={<Detail />} />
+    <ReduxProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/auth" element={<AuthLayouts />}>
+            <Route index element={<Login />} />
+            <Route path="new" element={<Register />} />
           </Route>
-          <Route path="order" element={<Order />} />
-          <Route path="payment" element={<Payment />} />
-          <Route path="ticket" element={<Ticket />} />
-        </Route>
 
-        <Route element={<ProfileLayout />}>
-          <Route path="profile">
-            <Route path="account" element={<DetailAccount />} />
-            <Route path="history" element={<History />} />
+          <Route element={<MainLayouts />}>
+            <Route index element={<Home />} />
+            <Route path="movie">
+              <Route path="all" element={<MoviesAll />} />
+              <Route path=":id" element={<Detail />} />
+            </Route>
+            <Route path="order" element={<Order />} />
+            <Route path="payment" element={<Payment />} />
+            <Route path="ticket" element={<Ticket />} />
           </Route>
-        </Route>
 
-        <Route element={<AdminLayouts />}>
-          <Route path="admin">
-            <Route index element={<Dashboard />} />
-            <Route path="add" element={<AddMovie />} />
-            <Route path="list" element={<ListMovie />} />
+          <Route element={<ProfileLayout />}>
+            <Route path="profile">
+              <Route path="account" element={<DetailAccount />} />
+              <Route path="history" element={<History />} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route path="*" element={<ErrorPage />} />
-        {/* <Route path="testing" element={<Testing />} /> */}
-      </Routes>
-    </BrowserRouter>
+          <Route element={<AdminLayouts />}>
+            <Route path="admin">
+              <Route index element={<Dashboard />} />
+              <Route path="add" element={<AddMovie />} />
+              <Route path="list" element={<ListMovie />} />
+            </Route>
+          </Route>
+
+          <Route path="*" element={<ErrorPage />} />
+          {/* <Route path="testing" element={<Testing />} /> */}
+        </Routes>
+      </BrowserRouter>
+    </ReduxProvider>
   </StrictMode>
 );

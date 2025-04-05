@@ -30,6 +30,9 @@
 }
 
 @layer components {
+  .inspect {
+    @apply border-2 border-red-500
+  }
   .input-form {
     @apply w-full h-[3.25rem] border border-gray-400 rounded px-3 py-1 focus:outline-none 
   }

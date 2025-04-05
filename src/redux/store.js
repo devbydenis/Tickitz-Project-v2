@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import moviesReducer from './slices/movies'
 
 const store = configureStore({
-  // pada createstore reducer jika lebih dari satu digabungkan menggunakan combineReducer
   reducer: {
-    // movies: moviesReducer,
+    movies: moviesReducer
   },
   
 })
