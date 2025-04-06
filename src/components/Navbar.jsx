@@ -1,46 +1,39 @@
 import React, { useState } from "react";
 import avatar from '../assets/avatar.png'
+import arrowBottom from "../assets/arrow-bottom.svg";
+import searchLogo from "../assets/search-bold.svg";
 import Button from "./Button";
 import {Link, NavLink} from "react-router";
 
 function Navbar() {
   const [isShowMenu, setIsShowMenu] = useState(true)
+  const [isShowMenuLogin, setIsShowMenuLogin] = useState(true)
   const userLogin = JSON.parse(localStorage.getItem('userLogin'))
   const { isLogin } = userLogin
   const showMenu = () => {
     setIsShowMenu(!isShowMenu)
   }
+
+  const showMenuLogin = () => {
+    setIsShowMenuLogin(!isShowMenuLogin)
+  }
   const isLoginUser = () => {
-    // const getLoginInfo = JSON.parse(localStorage.getItem("user"));
-    // const { isLogin } = getLoginInfo;
     if (isLogin) {
       return (
         <>
           <li>location</li>
-          <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="#000"
-            >
-              <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
-            </svg>
+          <li className="relative z-10 cursor-pointer" onClick={showMenuLogin}>
+            <img src={arrowBottom} alt="arrow-bottom" />
+            <div className={`absolute z-20 top-10 right-0 ${isShowMenuLogin ? 'hidden' : 'flex'} bg-white border border-gray-300 rounded flex-col gap-2 px-5`}>
+              <Link to={"profile/account"}>Profile</Link>
+              <Link className="cursor-pointer" to={'/auth'}>Logout</Link>
+            </div>
           </li>
           <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="#000"
-            >
-              <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-            </svg>
+            <img src={searchLogo} alt="search-logo" />
           </li>
           <li>
-            <Link to={'profile'}>
+            <Link to={'profile/account'}>
               <img
                 src={avatar}
                 alt="avatar"
