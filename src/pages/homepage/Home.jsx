@@ -240,7 +240,6 @@ function Home() {
               ? ( <p>Loading...</p> )
               : nowPlaying.length !== 0
                 ? nowPlaying.map((movie, index) => {
-                  console.log("Movie nih bos", movie.id);
                     return (
                       <li key={index}>
                         <Card 
@@ -297,7 +296,7 @@ function Home() {
                     return (
                       <li key={index}>
                         <Card 
-
+                          id={movie.id}
                           title={movie.title}
                           image={movie.image}
                           genres = {movie.genres}

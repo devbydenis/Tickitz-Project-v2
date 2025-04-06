@@ -24,6 +24,9 @@ function MoviesAll() {
     dispatch(movieActions.getGenresMovieThunk());
   }, []);
   
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <main>
@@ -118,7 +121,7 @@ function MoviesAll() {
               </div>
             </div>
           </form>
-          <div className="movies-carousel flex flex-wrap gap-5 w-full p-3 mt-10">
+          <div className="movies-carousel flex justify-center flex-wrap gap-5 w-full p-3 mt-10">
             {/* FILL WITH FETCHING DATA */}
             
             {isLoading && <Loaders />}

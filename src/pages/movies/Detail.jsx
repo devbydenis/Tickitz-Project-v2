@@ -8,9 +8,12 @@ import hiflix from "../../assets/footer/hiflix.svg";
 
 function Detail() {
   const [moviesDetail, setMoviesDetail] = useState([]);
+  const [credits, setCredits] = useState([]);
+  const {title, poster_path, backdrop_path, release_date, overview} = moviesDetail;
+  // const {cast, crew} = credits;
+  // const directors = crew.filter((person) => person.job === "Director");
+  // const casts = cast.slice(0, 5);
   const params = useParams();
-  const {title, poster_path, backdrop_path, release_date, overview} =
-    moviesDetail;
   const date = new Date(release_date);
   const months = [
     "January",
@@ -40,7 +43,6 @@ function Detail() {
         Authorization: `Bearer ${API_KEY}`,
       },
     };
-
     async function getDetailMovie() {
       try {
         const response = await fetch(url, options);
@@ -57,6 +59,34 @@ function Detail() {
     }
 
     getDetailMovie();
+  }, [params.id]);
+
+  useEffect(() => {
+    const url = `https://api.themoviedb.org/3/movie/${params.id}/credits?language=en-US`;
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    };
+
+    async function getCreditsMovie() {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error(response.statusText);
+
+        const creditsJSON = await response.json();
+        console.log(creditsJSON);
+        const credits = creditsJSON;
+        console.log("data credits", credits);
+        setCredits(credits);
+      } catch (error) {
+        if (error instanceof Error) console.log(error.message);
+      }
+    }
+
+    getCreditsMovie();
   }, [params.id]);
 
   useEffect(() => {
@@ -82,12 +112,15 @@ function Detail() {
               {title}
             </h1>
             <ul className="flex justify-center flex-wrap gap-2 mt-4">
-              <li className="bg-gray-100 px-4 py-2 rounded-full">Adventure</li>
-              <li className="bg-gray-100 px-4 py-2 rounded-full">Action</li>
-              <li className="bg-gray-100 px-4 py-2 rounded-full">Romance</li>
-              <li className="bg-gray-100 px-4 py-2 rounded-full">Comedy</li>
-              <li className="bg-gray-100 px-4 py-2 rounded-full">Sci-Fi</li>
-              <li className="bg-gray-100 px-4 py-2 rounded-full">Horror</li>
+              {moviesDetail.genres &&
+                moviesDetail.genres.map((genre) => (
+                  <li
+                    key={genre.id}
+                    className="bg-gray-100 px-4 py-2 rounded-full"
+                  >
+                    {genre.name}
+                  </li>
+                ))}
             </ul>
             <ul className="grid grid-cols-2 gap-5 mt-5">
               {/* <ul className="flex justify-between gap-5 mt-6 flex-wrap"> */}
@@ -101,13 +134,26 @@ function Detail() {
               </li>
               <li className="w-full flex flex-col">
                 <p className="text-gray-500">Directed by</p>
-                <p className="text-black">Jon Watts</p>
+                {/* <p className="text-black">Jon Watts</p> */}
+                {credits.crew &&
+                  credits.crew.map((crew) => {
+                    if (crew.job === "Director") {
+                      return <p className="text-black">{crew.name}</p>;
+                    }
+                  })}
               </li>
               <li className="w-full">
                 <p className="text-gray-500">Casts</p>
-                <p className="text-black pr-4">
-                  Tom Holland, Robert Downey Jr, Dwayne Johnson
-                </p>
+                {/* {credits.cast &&
+                  credits.cast.slice(0, 4).map((cast) => {
+                    if (cast.known_for_department === "Acting") {
+                      return (
+                        <p className="text-black pr-4">{cast.name}</p>
+                      );
+                    }
+                  })
+                } */}
+                {<p className="text-black">{credits.cast.slice(0, 4).map((cast) => cast.name).join(", ")}</p>}
               </li>
             </ul>
           </div>
