@@ -9,10 +9,9 @@ import hiflix from "../../assets/footer/hiflix.svg";
 function Detail() {
   const [moviesDetail, setMoviesDetail] = useState([]);
   const [credits, setCredits] = useState([]);
-  const {title, poster_path, backdrop_path, release_date, overview} = moviesDetail;
-  // const {cast, crew} = credits;
-  // const directors = crew.filter((person) => person.job === "Director");
-  // const casts = cast.slice(0, 5);
+  const {title, poster_path, backdrop_path, release_date, overview} =
+    moviesDetail;
+  const {cast, crew} = credits;
   const params = useParams();
   const date = new Date(release_date);
   const months = [
@@ -92,9 +91,30 @@ function Detail() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleSubmitBookNow = (e) => {
+    e.preventDefault();
+
+    const date = e.target.date.value;
+    const time = e.target.time.value;
+    const location = e.target.location.value;
+    const cinema = e.target.cinema.value;
+    const dataDetail = {
+      movieId:params.id, 
+      image:poster_path, 
+      genres: moviesDetail.genres, 
+      title, 
+      date, 
+      time, 
+      location, 
+      cinema
+    }
+    console.log(dataDetail);
+
+  };
   return (
     <>
-      <article className="grid grid-cols-1 grid-rows-[200px_1fr] ">
+      <article className="grid grid-cols-1 grid-rows-[250px_1fr] ">
         <section
           className={`banner h-[475px] bg-cover bg-center brightness-50 `}
           style={{
@@ -135,8 +155,8 @@ function Detail() {
               <li className="w-full flex flex-col">
                 <p className="text-gray-500">Directed by</p>
                 {/* <p className="text-black">Jon Watts</p> */}
-                {credits.crew &&
-                  credits.crew.map((crew) => {
+                {crew &&
+                  crew.map((crew) => {
                     if (crew.job === "Director") {
                       return <p className="text-black">{crew.name}</p>;
                     }
@@ -153,7 +173,15 @@ function Detail() {
                     }
                   })
                 } */}
-                {<p className="text-black">{credits.cast.slice(0, 4).map((cast) => cast.name).join(", ")}</p>}
+                {
+                  <p className="text-black">
+                    {cast && 
+                    cast
+                      .slice(0, 4)
+                      .map((cast) => cast.name)
+                      .join(", ")}
+                  </p>
+                }
               </li>
             </ul>
           </div>
@@ -162,13 +190,13 @@ function Detail() {
           <h3 className="text-xl font-semibold mb-4">Synopsis</h3>
           <p className="text-gray-500">{overview}</p>
         </section>
-        <ShowtimesAndTickets />
+        <ShowtimesAndTickets handleSubmitBookNow={handleSubmitBookNow} />
       </article>
     </>
   );
 }
 
-function ShowtimesAndTickets() {
+function ShowtimesAndTickets({ handleSubmitBookNow }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -178,30 +206,32 @@ function ShowtimesAndTickets() {
     <>
       <section className="showtimes-ticket p-6 md:mx-10">
         <h3 className="text-3xl font-bold mb-10">Showtimes and Tickets</h3>
-        <form className="flex gap-5 flex-wrap md:flex-row items-center">
+        <form
+          onSubmit={handleSubmitBookNow}  
+          className="flex gap-5 flex-wrap md:flex-row items-center">
           <div className="date mb-4 md:grow">
-            <p className="text-xl font-semibold tracking-wide mb-5">
+            <label className="text-xl font-semibold tracking-wide mb-5" htmlFor="date">
               Choose Date
-            </p>
-            <input type="date" className="w-full p-2 bg-[#EFF0F6] rounded" />
+            </label>
+            <input type="date" name="date" id="date" className="w-full p-2 bg-[#EFF0F6] rounded" />
           </div>
           <div className="time mb-4 md:grow">
-            <p className="text-xl font-semibold tracking-wide mb-5">
+            <label className="text-xl font-semibold tracking-wide mb-5" htmlFor="time">
               Choose Time
-            </p>
-            <select className="w-full p-2 bg-[#EFF0F6] rounded">
-              <option value="first">08.30-10.30</option>
-              <option value="second">11.00-13.00</option>
-              <option value="third">13.30-15.30</option>
-              <option value="fourth">16.00-18.00</option>
-              <option value="fifth">18.30-20.30</option>
+            </label>
+            <select className="w-full p-2 bg-[#EFF0F6] rounded" name="time" id="time">
+              <option value="08.30-10.30">08.30-10.30</option>
+              <option value="11.00-13.00">11.00-13.00</option>
+              <option value="13.30-15.30">13.30-15.30</option>
+              <option value="16.00-18.00">16.00-18.00</option>
+              <option value="18.30-20.30">18.30-20.30</option>
             </select>
           </div>
           <div className="city mb-4 md:grow">
-            <p className="text-xl font-semibold tracking-wide mb-5">
+            <label className="text-xl font-semibold tracking-wide mb-5" htmlFor="location">
               Choose Location
-            </p>
-            <select className="w-full p-2 bg-[#EFF0F6] rounded">
+            </label>
+            <select className="w-full p-2 bg-[#EFF0F6] rounded" name="location" id="location">
               <option value="Jakarta">Jakarta</option>
               <option value="Bogor">Bogor</option>
               <option value="Depok">Depok</option>
@@ -230,6 +260,7 @@ function ShowtimesAndTickets() {
                   type="radio"
                   name="cinema"
                   id="ebuid"
+                  value={"ebuid"}
                 />
               </label>
               <label
@@ -242,6 +273,7 @@ function ShowtimesAndTickets() {
                   type="radio"
                   name="cinema"
                   id="hiflix"
+                  value={"hiflix"}
                 />
               </label>
               <label
@@ -254,6 +286,7 @@ function ShowtimesAndTickets() {
                   type="radio"
                   name="cinema"
                   id="cineone"
+                  value={"cineone"}
                 />
               </label>
             </div>
@@ -279,7 +312,7 @@ function ShowtimesAndTickets() {
             </div> */}
             <button
               className="w-50 text-lg font-bold text-white bg-primary rounded py-3 mx-auto"
-              type="button"
+              type="submit"
             >
               Book Now
             </button>
