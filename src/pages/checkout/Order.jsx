@@ -1,12 +1,20 @@
 import React, {useState} from "react";
 import arrowDown from "../../assets/arrow-down.svg";
 import arrowRight from "../../assets/arrow-right.svg";
+import useScrollTop from "../../hooks/useScrollTop";
+import {useDispatch, useSelector} from "react-redux";
+import {addSeat} from "../../redux/slices/bookingMovies";
 
 function Order() {
   const [isModal, _] = useState(false);
-  const rows = ["A", "B", "C", "D", "E", "F", "G"];
-  const rowNumbers1 = [1, 2, 3, 4, 5, 6, 7];
-  const rowNumbers2 = [8, 9, 10, 11, 12, 13, 14];
+  const [seatChoosed, setSeatChoosed] = useState([]);
+  const result = seatChoosed.filter((element, index) => {    // return seatChoosed.indexOf(element) === index
+
+  })
+  console.log("seatChoosed", seatChoosed);
+  console.log("result", result);
+  useScrollTop();
+
 
   return (
     <>
@@ -18,13 +26,11 @@ function Order() {
         ></div>
         <OrderSteps />
         <section className="md:grid lg:grid-cols-[2fr_1fr]">
-          <form className="bg-white rounded-lg py-2 mx-5 mb-10">
+          <form
+            className="bg-white rounded-lg py-2 mx-5 mb-10"
+          >
             <OrderInfo />
-            <OrderSeat
-              rows={rows}
-              rowNumbers1={rowNumbers1}
-              rowNumbers2={rowNumbers2}
-            />
+            <OrderSeat seatChoosed={seatChoosed} setSeatChoosed={setSeatChoosed} />
             <SeatingKey />
             <OrderChoosed />
           </form>
@@ -62,63 +68,81 @@ function OrderSteps() {
   );
 }
 function OrderInfo() {
+  const {image, title, genres, time} = useSelector(
+    (state) => state.bookingMovie
+  );
   return (
     <>
-      <section className="md:flex gap-5 bg-white border border-gray-300 p-4 m-4 rounded-lg text-center ">
+      <section className=" md:flex gap-5 bg-white border border-gray-300 p-4 m-4 rounded-lg">
         <div
           className="bg-cover h-44 rounded-lg md:h-28 md:w-44"
-          style={{backgroundImage: "url(src/assets/background.png)"}}
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/w500${image})`,
+          }}
         ></div>
         <div>
           <h1 className="mt-4 font-bold text-3xl md:text-2xl md:mt-1">
-            Spiderman HomeComing
+            {title}
           </h1>
-          <ul className="mt-4 flex flex-wrap gap-3 justify-center md:mt-1">
-            <li className="bg-[#A0A3BD1A] rounded-2xl px-4 py-1 text-secondary">
-              Action
-            </li>
-            <li className="bg-[#A0A3BD1A] rounded-2xl px-4 py-1 text-secondary">
-              Adventure
-            </li>
+          <ul className="mt-4 flex flex-wrap gap-3 ">
+            {genres.map((genre, index) => (
+              <li
+                className="bg-[#A0A3BD1A] rounded-2xl px-4 py-1 text-secondary"
+                key={index}
+              >
+                {genre.name}
+              </li>
+            ))}
           </ul>
-          <p className="mt-4 font-normal text-gray-900 md:mt-1">
-            Regular - 13:00 PM
-          </p>
-          <button
-            type="button"
-            className="mt-4 bg-[#1D4ED833] text-primary px-3 py-1 rounded-xl active:scale-95 hover:outline hover:outline-primary transition-all "
-          >
-            Change
-          </button>
+          <div className="flex justify-between items-center">
+            <p className="mt-4 font-normal text-gray-900 md:mt-1">
+              Regular - {time}
+            </p>
+            <button
+              type="button"
+              className="mt-4 bg-[#1D4ED833] text-primary px-3 py-1 rounded-xl active:scale-95 hover:outline hover:outline-primary transition-all "
+            >
+              Change
+            </button>
+          </div>
         </div>
       </section>
     </>
   );
 }
 
-function SingleSeat({id}) {
+function SingleSeat({id, seatChoosed, setSeatChoosed}) {
+  // fungsi untuk memfilter seat yang sama ketika di klik
+  const toogleSeat = (id) => {
+    if (seatChoosed.includes(id)) {
+      return seatChoosed.filter((element) => element !== id);
+    } else {
+      return [...seatChoosed, id];
+    }
+  }
   return (
     <>
       <label
         className="w-10 h-10 bg-[#D6D8E7] rounded cursor-pointer has-checked:bg-primary"
         htmlFor={id}
       >
-        <input className="hidden" type="checkbox" name={id} id={id} onClick={() => {console.log(id)}} />
+        {/* <input className="hidden" type="checkbox" name={id} id={id} onClick={() => setSeatChoosed([...seatChoosed, id])} /> */}
+        <input className="hidden" type="checkbox" name={id} id={id} onClick={() => setSeatChoosed(() => toogleSeat(id))} />
       </label>
     </>
   );
 }
 
-function SingleRow({letter, rowNumbers1, rowNumbers2}) {
+function SingleRow({letter, rowNumbers1, rowNumbers2, seatChoosed, setSeatChoosed}) {
   return (
     <>
       <p className="my-auto w-3">{letter}</p>
       {rowNumbers1.map((number, index) => {
-        return <SingleSeat key={index} id={`${letter}${number}`} />;
+        return <SingleSeat key={index} id={`${letter}${number}`} seatChoosed={seatChoosed} setSeatChoosed={setSeatChoosed} />;
       })}
       <div className="w-3 h-1"></div>
       {rowNumbers2.map((number, index) => {
-        return <SingleSeat key={index} id={`${letter}${number}`} />;
+        return <SingleSeat key={index} id={`${letter}${number}`} seatChoosed={seatChoosed} setSeatChoosed={setSeatChoosed} />;
       })}
     </>
   );
@@ -155,7 +179,10 @@ function SingleRowLetter() {
   );
 }
 
-function OrderSeat({rows, rowNumbers1, rowNumbers2}) {
+function OrderSeat({seatChoosed, setSeatChoosed}) {
+  const rows = ["A", "B", "C", "D", "E", "F", "G"];
+  const rowNumbers1 = [1, 2, 3, 4, 5, 6, 7];
+  const rowNumbers2 = [8, 9, 10, 11, 12, 13, 14];
   const createSeatLayout = () => {
     return rows.map((element, index) => {
       return (
@@ -169,6 +196,8 @@ function OrderSeat({rows, rowNumbers1, rowNumbers2}) {
               rows={rows}
               rowNumbers1={rowNumbers1}
               rowNumbers2={rowNumbers2}
+              seatChoosed={seatChoosed}
+              setSeatChoosed={setSeatChoosed}
             />
           }
         </div>
@@ -180,7 +209,9 @@ function OrderSeat({rows, rowNumbers1, rowNumbers2}) {
     <>
       <section className="order-choose-seat bg-white rounded-lg mt-10 p-4 m-4">
         <p className="mb-9 font-semibold text-lg">Choose Your Seat</p>
-        <div className="seat-screen flex justify-center mb-10 font-bold shadow-2xl">SCREEN</div>
+        <div className="seat-screen flex justify-center mb-10 font-bold shadow-2xl">
+          SCREEN
+        </div>
         <div className="order-seat">
           <div className="flex flex-col gap-3 overflow-x-scroll">
             {createSeatLayout()}
@@ -284,7 +315,7 @@ function OrderChoosed() {
         Add new seat
       </button>
       <button
-        className="bg-primary text-background rounded-lg py-3 w-full mt-5"
+        className="md:hidden bg-primary text-background rounded-lg py-3 w-full mt-5"
         type="button"
       >
         Submit
@@ -351,6 +382,8 @@ function ModalOrder({isModal}) {
   );
 }
 function ModalOrderDesktop() {
+  const {title, date, time, seats} = useSelector((state) => state.bookingMovie);
+
   return (
     <>
       <section
@@ -370,13 +403,13 @@ function ModalOrderDesktop() {
             <p className="tracking-wider text-title-info-first">
               Movie selected
             </p>
-            <p>Spider-Man: Homecoming</p>
+            <p>{title.substring(0, 20) + "..."}</p>
           </span>
           <span className="flex justify-between">
             <p className="tracking-wider text-title-info-first">
-              Tuesday, 07 July 2020
+              {date}
             </p>
-            <p>13.00 PM</p>
+            <p>{time}</p>
           </span>
           <span className="flex justify-between">
             <p className="tracking-wider text-title-info-first">
@@ -386,7 +419,7 @@ function ModalOrderDesktop() {
           </span>
           <span className="flex justify-between">
             <p className="tracking-wider text-title-info-first">Seat Choosed</p>
-            <p>C4</p>
+            <p>{seats}</p>
           </span>
           <span className="flex justify-between">
             <p className="tracking-wider text-title-info-first">
@@ -399,7 +432,7 @@ function ModalOrderDesktop() {
           className="w-full border rounded py-3 bg-primary text-white font-bold hover:transform active:scale-95 transition-all"
           type="button"
         >
-          Confirm Button
+          Checkout Now
         </button>
       </section>
     </>

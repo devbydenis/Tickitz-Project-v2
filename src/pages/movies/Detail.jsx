@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router";
+import {Navigate, useNavigate, useParams} from "react-router";
 import {API_KEY} from "../../service";
 import ebuid from "../../assets/footer/ebuid.svg";
 import cineone from "../../assets/footer/cineone.svg";
 import hiflix from "../../assets/footer/hiflix.svg";
-// import arrowRight from "../../assets/arrow-right-white.svg";
+import {useDispatch} from "react-redux";
+import {bookNow} from "../../redux/slices/bookingMovies";
+// import { createContext } from "react";
 
 function Detail() {
   const [moviesDetail, setMoviesDetail] = useState([]);
@@ -13,6 +15,9 @@ function Detail() {
     moviesDetail;
   const {cast, crew} = credits;
   const params = useParams();
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
+
   const date = new Date(release_date);
   const months = [
     "January",
@@ -100,17 +105,17 @@ function Detail() {
     const location = e.target.location.value;
     const cinema = e.target.cinema.value;
     const dataDetail = {
-      movieId:params.id, 
-      image:poster_path, 
-      genres: moviesDetail.genres, 
-      title, 
-      date, 
-      time, 
-      location, 
-      cinema
-    }
-    console.log(dataDetail);
-
+      image: poster_path,
+      genres: moviesDetail.genres,
+      title,
+      date,
+      time,
+      location,
+      cinema,
+    };
+    // console.log(dataDetail);
+    dispatch(bookNow(dataDetail));
+    Navigate("/order");
   };
   return (
     <>
@@ -175,11 +180,11 @@ function Detail() {
                 } */}
                 {
                   <p className="text-black">
-                    {cast && 
-                    cast
-                      .slice(0, 4)
-                      .map((cast) => cast.name)
-                      .join(", ")}
+                    {cast &&
+                      cast
+                        .slice(0, 4)
+                        .map((cast) => cast.name)
+                        .join(", ")}
                   </p>
                 }
               </li>
@@ -196,7 +201,7 @@ function Detail() {
   );
 }
 
-function ShowtimesAndTickets({ handleSubmitBookNow }) {
+function ShowtimesAndTickets({handleSubmitBookNow}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -207,19 +212,35 @@ function ShowtimesAndTickets({ handleSubmitBookNow }) {
       <section className="showtimes-ticket p-6 md:mx-10">
         <h3 className="text-3xl font-bold mb-10">Showtimes and Tickets</h3>
         <form
-          onSubmit={handleSubmitBookNow}  
-          className="flex gap-5 flex-wrap md:flex-row items-center">
-          <div className="date mb-4 md:grow">
-            <label className="text-xl font-semibold tracking-wide mb-5" htmlFor="date">
+          onSubmit={handleSubmitBookNow}
+          className="flex gap-5 flex-wrap md:flex-row items-center"
+        >
+          <div className="date mb-4 grow">
+            <label
+              className="text-xl font-semibold tracking-wide mb-5"
+              htmlFor="date"
+            >
               Choose Date
             </label>
-            <input type="date" name="date" id="date" className="w-full p-2 bg-[#EFF0F6] rounded" />
+            <input
+              type="date"
+              name="date"
+              id="date"
+              className="w-full p-2 bg-[#EFF0F6] rounded"
+            />
           </div>
-          <div className="time mb-4 md:grow">
-            <label className="text-xl font-semibold tracking-wide mb-5" htmlFor="time">
+          <div className="time mb-4 grow">
+            <label
+              className="text-xl font-semibold tracking-wide mb-5"
+              htmlFor="time"
+            >
               Choose Time
             </label>
-            <select className="w-full p-2 bg-[#EFF0F6] rounded" name="time" id="time">
+            <select
+              className="w-full p-2 bg-[#EFF0F6] rounded"
+              name="time"
+              id="time"
+            >
               <option value="08.30-10.30">08.30-10.30</option>
               <option value="11.00-13.00">11.00-13.00</option>
               <option value="13.30-15.30">13.30-15.30</option>
@@ -227,11 +248,18 @@ function ShowtimesAndTickets({ handleSubmitBookNow }) {
               <option value="18.30-20.30">18.30-20.30</option>
             </select>
           </div>
-          <div className="city mb-4 md:grow">
-            <label className="text-xl font-semibold tracking-wide mb-5" htmlFor="location">
+          <div className="city mb-4 grow">
+            <label
+              className="text-xl font-semibold tracking-wide mb-5"
+              htmlFor="location"
+            >
               Choose Location
             </label>
-            <select className="w-full p-2 bg-[#EFF0F6] rounded" name="location" id="location">
+            <select
+              className="w-full p-2 bg-[#EFF0F6] rounded"
+              name="location"
+              id="location"
+            >
               <option value="Jakarta">Jakarta</option>
               <option value="Bogor">Bogor</option>
               <option value="Depok">Depok</option>
@@ -241,7 +269,7 @@ function ShowtimesAndTickets({ handleSubmitBookNow }) {
           </div>
           <button
             type="button"
-            className="w-full md:w-1/6 p-2 md:mt-8 bg-blue-600 text-white rounded"
+            className="mb-5 w-full md:w-1/6 p-2 md:mt-8 bg-blue-600 text-white rounded"
           >
             Filter
           </button>
