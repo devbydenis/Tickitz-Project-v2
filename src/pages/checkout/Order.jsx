@@ -4,17 +4,23 @@ import arrowRight from "../../assets/arrow-right.svg";
 import useScrollTop from "../../hooks/useScrollTop";
 import {useDispatch, useSelector} from "react-redux";
 import {addSeat} from "../../redux/slices/bookingMovies";
+import hiflix from "../../assets/footer/hiflix.svg";
+import cineone from "../../assets/footer/cineone.svg";
+import ebuid from "../../assets/footer/ebuid.svg";
+import { useNavigate } from "react-router";
 
 function Order() {
   const [isModal, _] = useState(false);
   const [seatChoosed, setSeatChoosed] = useState([]);
-  const result = seatChoosed.filter((element, index) => {    // return seatChoosed.indexOf(element) === index
-
-  })
-  console.log("seatChoosed", seatChoosed);
-  console.log("result", result);
+  console.log(seatChoosed);
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   useScrollTop();
 
+  const handleCheckout = () => {
+    dispatch(addSeat(seatChoosed));
+    Navigate("/payment");
+  }
 
   return (
     <>
@@ -34,8 +40,8 @@ function Order() {
             <SeatingKey />
             <OrderChoosed />
           </form>
-          <ModalOrderDesktop />
-          <ModalOrder isModal={isModal} />
+          <ModalOrderDesktop seatChoosed={seatChoosed} dispatch={dispatch} handleCheckout={handleCheckout}/>
+          <ModalOrder isModal={isModal} seatChoosed={seatChoosed}/>
         </section>
       </main>
     </>
@@ -48,7 +54,7 @@ function OrderSteps() {
         <p className="rounded-full bg-primary text-background py-2 px-4 mb-3">
           1
         </p>
-        <p className="text-black font-medium">Fill More</p>
+        <p className="text-gray-700 font-medium">Fill More</p>
       </li>
       <li className="border-t-2 border-secondary border-dashed w-20 h-1"></li>
       <li className="flex flex-col items-center">
@@ -94,13 +100,13 @@ function OrderInfo() {
               </li>
             ))}
           </ul>
-          <div className="flex justify-between items-center">
-            <p className="mt-4 font-normal text-gray-900 md:mt-1">
+          <div className="mt-4 flex justify-between gap-5 items-center">
+            <p className="font-normal text-gray-900 md:mt-1">
               Regular - {time}
             </p>
             <button
               type="button"
-              className="mt-4 bg-[#1D4ED833] text-primary px-3 py-1 rounded-xl active:scale-95 hover:outline hover:outline-primary transition-all "
+              className="bg-[#1D4ED833] text-primary px-3 py-1 rounded-xl active:scale-95 hover:outline hover:outline-primary transition-all "
             >
               Change
             </button>
@@ -381,9 +387,17 @@ function ModalOrder({isModal}) {
     </>
   );
 }
-function ModalOrderDesktop() {
-  const {title, date, time, seats} = useSelector((state) => state.bookingMovie);
-
+function ModalOrderDesktop({seatChoosed, handleCheckout}) {
+  const {title, date, time, cinema} = useSelector((state) => state.bookingMovie);
+  const cinemaChoosed = () => {
+    if (cinema === "cineone") {
+      return cineone;
+    } else if (cinema === "hiflix") {
+      return hiflix;
+    } else {
+      return ebuid;
+    }
+  } 
   return (
     <>
       <section
@@ -391,7 +405,7 @@ function ModalOrderDesktop() {
       >
         <div className="flex flex-col w-full items-center mb-8">
           <img
-            src="src/assets/cineone.svg"
+            src={cinemaChoosed()}
             alt="cinema"
             width={114}
             height={24}
@@ -417,20 +431,33 @@ function ModalOrderDesktop() {
             </p>
             <p>$10</p>
           </span>
-          <span className="flex justify-between">
+          <span className="flex justify-between gap-5">
             <p className="tracking-wider text-title-info-first">Seat Choosed</p>
-            <p>{seats}</p>
+            <p className="w-1/2 text-end">
+            {
+              seatChoosed.length === 0 ? (
+                "-"
+              ) : (
+                seatChoosed
+                .map((seat) => {
+                  return seat + ", "
+                })
+                .sort()
+              )
+            }
+            </p>
           </span>
           <span className="flex justify-between">
             <p className="tracking-wider text-title-info-first">
               Total Payment
             </p>
-            <p>$30</p>
+            <p>$ {seatChoosed.length * 10}</p>
           </span>
         </div>
         <button
           className="w-full border rounded py-3 bg-primary text-white font-bold hover:transform active:scale-95 transition-all"
           type="button"
+          onClick={handleCheckout()}
         >
           Checkout Now
         </button>
